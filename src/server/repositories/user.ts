@@ -3,9 +3,7 @@ import { userSchema } from '@/validators/user';
 import { db } from '../db';
 
 export const getAllUsers = async () => {
-	console.log('getAllUsers');
 	const users = await db.user.findMany();
-	console.log(`Users: ${users.length}`);
 	return userSchema.array().parse(users);
 };
 

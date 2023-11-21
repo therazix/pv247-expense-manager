@@ -3,13 +3,9 @@ import { type Category, type NewCategory } from '@/types/category';
 
 import { db } from '../db';
 
-export const getCategoriesByUserId = async (user_id: string) => {
+export const getCategoriesByUserId = async (userId: string) => {
 	const categories = await db.category.findMany({
-		where: {
-			userId: {
-				equals: user_id
-			}
-		}
+		where: { userId }
 	});
 	return categorySchema.array().parse(categories);
 };

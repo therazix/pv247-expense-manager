@@ -4,14 +4,10 @@ import { type NewTransaction } from '@/types/transaction';
 import { db } from '../db';
 
 export const getTransactionsByAccountId = async (
-	finantialAccountId: string
+	financialAccountId: string
 ) => {
 	const transactions = await db.transaction.findMany({
-		where: {
-			financialAccountId: {
-				equals: finantialAccountId
-			}
-		},
+		where: { financialAccountId },
 		include: { category: true }
 	});
 	return transactionSchema.array().parse(transactions);
