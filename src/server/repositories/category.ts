@@ -22,6 +22,8 @@ export const createCategory = async (category: NewCategory) => {
 	const newCategory = await db.category.create({
 		data: {
 			name: category.name,
+			color: category.color,
+			icon: category.icon,
 			userId: category.userId
 		}
 	});
