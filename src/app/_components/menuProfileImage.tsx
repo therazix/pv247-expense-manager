@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 type MenuProfileImageProps = {
 	image: string;
@@ -13,7 +14,7 @@ const MenuProfileImage = ({
 	size = 45,
 	className = ''
 }: MenuProfileImageProps) => (
-	<img
+	<Image
 		src={image}
 		alt={`${username} profile`}
 		width={size}
