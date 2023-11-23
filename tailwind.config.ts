@@ -13,8 +13,19 @@ const config: Config = {
 				'gradient-conic':
 					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
 			}
+		},
+		colors: {
+			'dark-gunmetal': '#141332',
+			'yankees-blue': '#1D1D41',
+			'cool-grey': '#8C89B4',
+			'go-green': '#02B15A',
+			'lust': '#E41414',
+			// Safelist colors
+			'maya-blue': '#64CFF6',
+			'majorelle-blue': '#6359E9'
 		}
 	},
+	safelist: ['bg-maya-blue', 'text-maya-blue'],
 	plugins: []
 };
 export default config;
