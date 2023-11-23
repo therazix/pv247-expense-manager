@@ -2,10 +2,10 @@
 
 import dynamic from 'next/dynamic';
 
-import { DefaultColors } from './default-colors';
+import LoadingComponent from './loading-component';
 const Chart = dynamic(() => import('react-apexcharts'), {
 	ssr: false,
-	loading: () => <p>Loading...</p>
+	loading: () => <LoadingComponent />
 });
 
 const IncomeOutcomeBar = () => (

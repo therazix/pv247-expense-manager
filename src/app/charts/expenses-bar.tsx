@@ -3,12 +3,13 @@
 import dynamic from 'next/dynamic';
 
 import { DefaultColors } from './default-colors';
+import LoadingComponent from './loading-component';
 const Chart = dynamic(() => import('react-apexcharts'), {
 	ssr: false,
-	loading: () => <p>Loading...</p>
+	loading: () => <LoadingComponent />
 });
 
-export type ExpensesLineProps = {
+export type ExpensesBarProps = {
 	timeLabels: string[];
 	data: {
 		name: string;
@@ -17,14 +18,22 @@ export type ExpensesLineProps = {
 	}[];
 };
 
-const ExpensesLine = ({ params }: { params: ExpensesLineProps }) => (
+const ExpensesBar = ({ params }: { params: ExpensesBarProps }) => (
 	<Chart
-		type="line"
+		type="bar"
 		options={{
+			dataLabels: {
+				enabled: false
+			},
 			chart: {
 				id: 'expenses-line',
 				toolbar: {
 					show: false
+				}
+			},
+			plotOptions: {
+				bar: {
+					borderRadius: 5
 				}
 			},
 			xaxis: {
@@ -74,6 +83,7 @@ const ExpensesLine = ({ params }: { params: ExpensesLineProps }) => (
 					radius: 20
 				}
 			},
+
 			colors: [
 				...params.data.map(
 					(data, index) =>
@@ -92,4 +102,4 @@ const ExpensesLine = ({ params }: { params: ExpensesLineProps }) => (
 	/>
 );
 
-export default ExpensesLine;
+export default ExpensesBar;

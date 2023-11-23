@@ -3,28 +3,29 @@
 import dynamic from 'next/dynamic';
 
 import { DefaultColors } from './default-colors';
+import LoadingComponent from './loading-component';
 
 const Chart = dynamic(() => import('react-apexcharts'), {
 	ssr: false,
-	loading: () => <p>Loading...</p>
+	loading: () => <LoadingComponent />
 });
 
-export type CategoriesPieChartProps = {
+export type CategoriesRadialChartProps = {
 	labels: string[];
 	data: number[];
 	colors?: string[];
 };
 
-const CategoriesPieChart = ({
+const CategoriesRadialChart = ({
 	params
 }: {
-	params: CategoriesPieChartProps;
+	params: CategoriesRadialChartProps;
 }) => (
 	<Chart
-		type="pie"
+		type="radialBar"
 		options={{
 			chart: {
-				id: 'categories-pie',
+				id: 'categories-radial',
 				toolbar: {
 					show: false
 				}
@@ -37,14 +38,25 @@ const CategoriesPieChart = ({
 			legend: {
 				show: true,
 				position: 'bottom',
+				fontSize: '16px',
 				labels: {
 					colors: '#b3b3b3'
-				},
-				fontSize: '16px'
+				}
 			},
 			plotOptions: {
-				pie: {
-					expandOnClick: false
+				radialBar: {
+					hollow: {
+						size: '35%'
+					},
+					track: {
+						background: '#272754',
+						endAngle: 360
+					},
+					dataLabels: {
+						value: {
+							color: '#b3b3b3'
+						}
+					}
 				}
 			},
 			stroke: {
@@ -57,4 +69,4 @@ const CategoriesPieChart = ({
 	/>
 );
 
-export default CategoriesPieChart;
+export default CategoriesRadialChart;
