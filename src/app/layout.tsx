@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import { Providers } from './providers';
+import Menu from './_components/menu';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,8 +14,11 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
 	<html lang="en">
-		<body className={inter.className}>
-			<Providers>{children}</Providers>
+		<body className={`${inter.className} block bg-dark-gunmetal lg:flex`}>
+			<Providers>
+				<Menu />
+				<main className="h-screen grow">{children}</main>
+			</Providers>
 		</body>
 	</html>
 );
