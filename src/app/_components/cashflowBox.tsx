@@ -1,15 +1,14 @@
-import { type ReactNode } from 'react';
-
 import ContentBox from './contentBox';
 import Pill from './pill';
+import FaIcon from './faIcon';
 
 type CashFlowBoxProps = {
 	title: string;
 	money: number;
 	currency: string;
+	iconBgColorVariant?: string;
+	icon?: string;
 	percentChange: number;
-	iconBgColorVariant: string;
-	icon: ReactNode;
 	isNegative: boolean;
 };
 
@@ -17,7 +16,7 @@ const CashFlowBox = ({
 	title,
 	money,
 	currency,
-	iconBgColorVariant,
+	iconBgColorVariant = 'majorelle-blue',
 	icon,
 	percentChange,
 	isNegative
@@ -28,11 +27,11 @@ const CashFlowBox = ({
 				<div
 					className={`bg-${iconBgColorVariant} mr-6 flex h-10 w-10 self-center rounded p-3`}
 				>
-					{icon}
+					<FaIcon icon={icon} />
 				</div>
 				<div>
 					<p className="text-base text-cool-grey">{title}</p>
-					<p className="text-white text-2xl font-semibold">
+					<p className="text-2xl font-semibold text-white">
 						{currency} {money}
 					</p>
 				</div>
