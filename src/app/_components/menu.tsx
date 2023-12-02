@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
+import Image from 'next/image';
 
 import MenuLink from './menuLink';
 import MenuProfile from './menuProfile';
-import MenuProfileImage from './menuProfileImage';
-import MenuProfileName from './menuProfileName';
 
 const Menu = () => {
 	const [isMenuHidden, setIsMenuHidden] = useState(true);
@@ -18,7 +17,16 @@ const Menu = () => {
 	return (
 		<nav className="w-full rounded-b-2xl bg-yankees-blue p-6 lg:h-screen lg:w-72 lg:rounded-r-2xl">
 			<div className="flex justify-between">
-				<h1 className="text-3xl lg:my-7">APP NAME</h1>
+				<div className="lg:mb-10">
+					<Image
+						src="/logo.png"
+						alt="logo"
+						width={70}
+						height={70}
+						className="mr-2 inline"
+					/>
+					<h1 className="inline text-2xl">EXPENSIO</h1>
+				</div>
 				<button onClick={toggleMenu} className="block lg:hidden">
 					<FaBars className="self-center text-3xl font-bold" />
 				</button>
