@@ -26,13 +26,13 @@ import {
 	LastUpdatedContext,
 	SelectedCategoryContext
 } from '../categoryProviders';
+import useClearDialog from '../_hooks/useClearDialog';
 
 type CategoryFormProviderProps = {
 	children: React.ReactNode;
 };
 
 const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
-	const [, setLastUpdatedCategory] = useContext(LastUpdatedContext);
 	const [selectedCategory, setSelectedCategory] = useContext(
 		SelectedCategoryContext
 	);
@@ -45,6 +45,12 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 	const formMethods = useForm<NewCategoryWithoutUserId>({
 		resolver: zodResolver(categoryCreateSchemaWithoutUserId)
 	});
+
+	const clearDialog = useClearDialog(
+		formMethods,
+		setSelectedCategory,
+		setSubmitText
+	);
 
 	const addOrEditCategoryMutation = useMutation({
 		mutationFn: async (category: NewCategory) => {
@@ -66,9 +72,8 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 				body: JSON.stringify(category)
 			});
 		},
-		onSuccess: async (response: Response) => {
-			const newCategory = categorySchema.parse(await response.json());
-			setLastUpdatedCategory(newCategory.id);
+		onSuccess: () => {
+			clearDialog();
 		},
 		onError: () => {
 			// TODO: add error handling later
@@ -90,19 +95,13 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 
 	useEffect(() => {
 		if (selectedCategory) {
-			setSubmitText('Update');
 			formMethods.reset(
 				categoryCreateSchemaWithoutUserId.parse(selectedCategory)
 			);
 		} else {
-			formMethods.reset({
-				name: '',
-				icon: undefined,
-				color: undefined
-			});
-			setSelectedCategory(null);
+			clearDialog();
 		}
-	}, [selectedCategory, setSelectedCategory, formMethods]);
+	}, [selectedCategory, setSelectedCategory, clearDialog, formMethods]);
 
 	useEffect(() => {
 		const newSubmitText = selectedCategory ? 'Update' : 'Add';
