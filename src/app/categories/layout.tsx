@@ -1,5 +1,5 @@
 const CategoryLayout = ({ children }: { children: React.ReactNode }) => (
-	<main className="h-screen grow">{children}</main>
+	<div className="h-screen grow ">{children}</div>
 );
 
 export default CategoryLayout;

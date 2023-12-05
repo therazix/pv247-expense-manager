@@ -12,10 +12,7 @@ import {
 	type NewCategory,
 	type NewCategoryWithoutUserId
 } from '@/types/category';
-import {
-	categoryCreateSchemaWithoutUserId,
-	categorySchema
-} from '@/validators/category';
+import { categoryCreateSchemaWithoutUserId } from '@/validators/category';
 import AddButton from '@/app/_components/addButton';
 import Button from '@/app/_components/button';
 import ButtonTransparent from '@/app/_components/buttonTransparent';
@@ -23,7 +20,6 @@ import Spinner from '@/app/_components/spinner';
 
 import {
 	DialogRefContext,
-	LastUpdatedContext,
 	SelectedCategoryContext
 } from '../categoryProviders';
 import useClearDialog from '../_hooks/useClearDialog';

@@ -15,9 +15,9 @@ const Menu = () => {
 	};
 
 	return (
-		<nav className="w-full rounded-b-2xl bg-yankees-blue p-6 lg:h-screen lg:w-72 lg:rounded-r-2xl">
+		<nav className="w-full rounded-b-2xl bg-yankees-blue p-6 lg:h-screen lg:w-[260px] lg:rounded-r-2xl">
 			<div className="flex justify-between">
-				<div className="lg:mb-10">
+				<div className="flex items-center lg:mb-10">
 					<Image
 						src="/logo.png"
 						alt="logo"
@@ -25,7 +25,7 @@ const Menu = () => {
 						height={70}
 						className="mr-2 inline"
 					/>
-					<h1 className="inline text-2xl">EXPENSIO</h1>
+					<h1 className="inline text-2xl font-semibold">EXPENSIO</h1>
 				</div>
 				<button onClick={toggleMenu} className="block lg:hidden">
 					<FaBars className="self-center text-3xl font-bold" />
