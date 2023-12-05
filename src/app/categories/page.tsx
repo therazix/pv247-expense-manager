@@ -19,7 +19,7 @@ const CategoryListPage = async () => {
 	if (categories.length === 0) {
 		return (
 			<CategoryProviders>
-				<h1 className="mx-6 mt-6 text-2xl">Categories</h1>
+				<h1 className="mx-6 mt-6 text-3xl font-bold">Categories</h1>
 				<ContentBox>
 					<div className="flex items-center justify-center">
 						<p>You have no category yet</p>

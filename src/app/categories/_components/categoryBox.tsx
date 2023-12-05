@@ -1,7 +1,11 @@
 'use client';
 
 import { FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import format from 'date-fns/format';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 import ContentBox from '@/app/_components/contentBox';
 import FaIcon from '@/app/_components/faIcon';
@@ -20,7 +24,9 @@ const defaultBgColor = 'dark-gunmetal';
 
 const CategoryBox = ({ category }: CategoryBoxProps) => {
 	const [, setSelectedCategory] = useContext(SelectedCategoryContext);
+	const router = useRouter();
 	const dialogRef = useContext(DialogRefContext);
+	const { data: session } = useSession();
 
 	const iconBgSelectableColor =
 		category.color !== '' ? category.color : defaultBgColor;
@@ -31,6 +37,32 @@ const CategoryBox = ({ category }: CategoryBoxProps) => {
 			dialogRef.current.showModal();
 		}
 	};
+
+	const deleteCategoryMutation = useMutation({
+		mutationFn: async (category: Category) => {
+			if (session?.user.id === category.userId) {
+				return await fetch(`/api/category/${category.id}`, {
+					method: 'DELETE'
+				});
+			}
+
+			// TODO: add error handling later
+			console.log('ERROR');
+			return new Response('Unauthorized', { status: 401 });
+			// TODO: add error handling later
+		},
+		onError: () => {
+			// TODO: add error handling later
+			console.log('ERROR');
+		}
+	});
+
+	useEffect(() => {
+		if (deleteCategoryMutation.isSuccess) {
+			const lastUpdate = format(new Date(), 'yyyy-MM-dd_HH:mm:ss');
+			router.push(`/categories?lastUpdate=${lastUpdate}`);
+		}
+	}, [deleteCategoryMutation, router]);
 
 	return (
 		<ContentBox>
@@ -49,7 +81,7 @@ const CategoryBox = ({ category }: CategoryBoxProps) => {
 					<button onClick={openDialog}>
 						<FaPenToSquare />
 					</button>
-					<button>
+					<button onClick={() => deleteCategoryMutation.mutate(category)}>
 						<FaTrashCan />
 					</button>
 				</div>
