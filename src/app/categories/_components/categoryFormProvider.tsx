@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import format from 'date-fns/format';
 
 import {
 	type NewCategory,
@@ -31,8 +32,7 @@ type CategoryFormProviderProps = {
 };
 
 const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
-	const [lastUpdatedCategory, setLastUpdatedCategory] =
-		useContext(LastUpdatedContext);
+	const [, setLastUpdatedCategory] = useContext(LastUpdatedContext);
 	const [selectedCategory, setSelectedCategory] = useContext(
 		SelectedCategoryContext
 	);
@@ -83,9 +83,10 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 
 	useEffect(() => {
 		if (addOrEditCategoryMutation.isSuccess) {
-			router.push(`/categories?lastUpdated=${lastUpdatedCategory}`);
+			const lastUpdate = format(new Date(), 'yyyy-MM-dd_HH:mm:ss');
+			router.push(`/categories?lastUpdate=${lastUpdate}`);
 		}
-	}, [addOrEditCategoryMutation, lastUpdatedCategory, router]);
+	}, [addOrEditCategoryMutation, router]);
 
 	useEffect(() => {
 		if (selectedCategory) {
