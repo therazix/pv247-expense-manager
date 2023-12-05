@@ -1,18 +1,45 @@
 'use client';
 
+import { signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
+import { MdLogin, MdLogout } from 'react-icons/md';
 import Image from 'next/image';
 
 import MenuLink from './menuLink';
 import MenuProfile from './menuProfile';
+import MenuButton from './menuButton';
 
 const Menu = () => {
+	const { data, status } = useSession();
 	const [isMenuHidden, setIsMenuHidden] = useState(true);
 
 	const toggleMenu = () => {
 		setIsMenuHidden(current => !current);
 	};
+
+	const profile =
+		status === 'authenticated' && data ? (
+			<>
+				<MenuProfile
+					username={data.user.name ? data.user.name : 'User'}
+					image={
+						data.user.image ? data.user.image : 'https://placehold.co/100x100'
+					}
+				/>
+				<MenuButton
+					text="Log Out"
+					icon={<MdLogout className="text-lg" />}
+					onClick={() => signOut()}
+				/>
+			</>
+		) : (
+			<MenuLink
+				href="/login"
+				text="Log In"
+				icon={<MdLogin className="text-lg" />}
+			/>
+		);
 
 	return (
 		<nav className="w-full rounded-b-2xl bg-yankees-blue p-6 lg:h-screen lg:w-[260px] lg:rounded-r-2xl">
@@ -56,7 +83,7 @@ const Menu = () => {
 					/>
 				</div>
 				{/* TODO: MenuProfile should be down */}
-				<MenuProfile username="username" image="https://placehold.co/100x100" />
+				<div className="flex-1">{profile}</div>
 			</div>
 		</nav>
 	);
