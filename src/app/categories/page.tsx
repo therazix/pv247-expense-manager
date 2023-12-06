@@ -1,8 +1,9 @@
+import { redirect } from 'next/navigation';
+
 import { getServerAuthSession } from '@/server/auth';
 import { getCategoriesByUserId } from '@/server/repositories/category';
 
 import ContentBox from '../_components/contentBox';
-import Spinner from '../_components/spinner';
 
 import { CategoryForm } from './_components/categoryForm';
 import CategoryBox from './_components/categoryBox';
@@ -10,7 +11,7 @@ import CategoryBox from './_components/categoryBox';
 const CategoryListPage = async () => {
 	const session = await getServerAuthSession();
 	if (!session) {
-		return <Spinner />;
+		redirect('/login');
 	}
 
 	const categories = await getCategoriesByUserId(session.user.id);

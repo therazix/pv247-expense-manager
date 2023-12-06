@@ -3,7 +3,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import format from 'date-fns/format';
 
@@ -36,7 +36,7 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 
 	const dialogRef = useContext(DialogRefContext);
 	const router = useRouter();
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 
 	const formMethods = useForm<NewCategoryWithoutUserId>({
 		resolver: zodResolver(categoryCreateSchemaWithoutUserId)
@@ -91,8 +91,11 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 		}
 	};
 
-	if (!session) {
+	if (status === 'loading') {
 		return <Spinner />;
+	}
+	if (!session) {
+		redirect('/login');
 	}
 
 	const onSubmit = (data: NewCategoryWithoutUserId) => {
