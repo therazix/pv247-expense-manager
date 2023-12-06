@@ -3,7 +3,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useContext, useEffect, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import format from 'date-fns/format';
@@ -23,6 +22,7 @@ import {
 	SelectedCategoryContext
 } from '../categoryProviders';
 import useClearDialog from '../_hooks/useClearDialog';
+import useAddOrEditCategoryMutation from '../_hooks/useAddOrEditCategoryMutation';
 
 type CategoryFormProviderProps = {
 	children: React.ReactNode;
@@ -48,39 +48,12 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 		setSubmitText
 	);
 
-	const addOrEditCategoryMutation = useMutation({
-		mutationFn: async (category: NewCategory) => {
-			if (selectedCategory) {
-				if (session?.user.id === selectedCategory.userId) {
-					return await fetch(`/api/category/${selectedCategory.id}`, {
-						method: 'PUT',
-						body: JSON.stringify(category)
-					});
-				}
-				// TODO: add error handling later
-				console.log('ERROR');
-				return new Response('Unauthorized', { status: 401 });
-				// TODO: add error handling later
-			}
-
-			return await fetch(`/api/category`, {
-				method: 'POST',
-				body: JSON.stringify(category)
-			});
-		},
-		onSuccess: () => {
-			clearDialog();
-		},
-		onError: () => {
-			// TODO: add error handling later
-			console.log('ERROR');
-		},
-		onSettled: () => {
-			if (dialogRef.current !== null) {
-				dialogRef.current.close();
-			}
-		}
-	});
+	const addOrEditCategoryMutation = useAddOrEditCategoryMutation(
+		selectedCategory,
+		session,
+		dialogRef,
+		clearDialog
+	);
 
 	useEffect(() => {
 		if (addOrEditCategoryMutation.isSuccess) {
@@ -97,12 +70,12 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 		} else {
 			clearDialog();
 		}
-	}, [selectedCategory, setSelectedCategory, clearDialog, formMethods]);
+	}, [selectedCategory, clearDialog, formMethods]);
 
 	useEffect(() => {
 		const newSubmitText = selectedCategory ? 'Update' : 'Add';
 		setSubmitText(newSubmitText);
-	}, [selectedCategory, setSelectedCategory]);
+	}, [selectedCategory, setSubmitText]);
 
 	const openDialog = () => {
 		if (dialogRef.current !== null) {
