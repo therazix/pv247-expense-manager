@@ -15,7 +15,7 @@ const IconField = () => {
 	const [selectedIcon, setSelectedIcon] = useState<string>('');
 
 	const onIconClick = (icon: string) => {
-		if (selectedCategory?.icon === icon) {
+		if (selectedIcon === icon) {
 			setValue('icon', '');
 			setSelectedIcon('');
 			return;
