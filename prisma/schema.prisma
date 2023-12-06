@@ -73,7 +73,7 @@ model FinancialAccount {
   id            String         @id @default(uuid())
   name          String
   description   String?
-  balance       Decimal
+  balance       Float          @default(0)
   currency      String
   createdAt     DateTime       @default(now())
   transactions  Transaction[]
@@ -85,7 +85,7 @@ model Transaction {
   id                  String            @id @default(uuid())
   name                String?
   description         String?
-  amount              Decimal
+  amount              Float             @default(0)
   datetime            DateTime          @default(now())
   financialAccount    FinancialAccount  @relation(fields: [financialAccountId], references: [id], onDelete: Cascade)
   financialAccountId  String
