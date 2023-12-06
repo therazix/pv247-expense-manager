@@ -40,7 +40,7 @@ export const ColorField = () => {
 						<IconButton
 							iconSelectableColor={color}
 							selectableColor={color}
-							onclick={() => onColorClick(color)}
+							onClick={() => onColorClick(color)}
 							className={
 								color === selectedColor
 									? 'border-2 border-white'

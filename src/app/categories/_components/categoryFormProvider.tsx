@@ -135,7 +135,7 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 
 	return (
 		<>
-			<AddButton className="absolute bottom-0 right-0" onclick={openDialog} />
+			<AddButton className="absolute bottom-0 right-0" onClick={openDialog} />
 			<div>
 				<dialog
 					ref={dialogRef}
@@ -153,7 +153,7 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 								<ButtonTransparent
 									text="Close"
 									className="w-2/5"
-									onclick={closeDialog}
+									onClick={closeDialog}
 								/>
 								<Button text={submitText} type="submit" className="w-3/5" />
 							</div>

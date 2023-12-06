@@ -39,7 +39,7 @@ const IconField = () => {
 					<div key={icon}>
 						<IconButton
 							icon={icon}
-							onclick={() => onIconClick(icon)}
+							onClick={() => onIconClick(icon)}
 							className={
 								icon === selectedIcon
 									? 'border-2 border-white'

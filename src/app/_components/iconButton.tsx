@@ -6,7 +6,7 @@ type IconButtonProps = {
 	selectableColor?: string;
 	type?: 'button' | 'submit';
 	className?: string;
-	onclick?: () => void;
+	onClick?: () => void;
 };
 
 const IconButton = ({
@@ -14,13 +14,13 @@ const IconButton = ({
 	iconSelectableColor = 'white',
 	className = '',
 	selectableColor = 'majorelle-blue',
-	onclick,
+	onClick,
 	type = 'button'
 }: IconButtonProps) => (
 	<button
 		className={`${className} rounded-full bg-${selectableColor} p-2 font-semibold hover:bg-${selectableColor}/[0.7] text-${iconSelectableColor}`}
 		type={type}
-		onClick={onclick}
+		onClick={onClick}
 	>
 		<FaIcon icon={icon} />
 	</button>
