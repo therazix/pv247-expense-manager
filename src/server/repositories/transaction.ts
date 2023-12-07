@@ -18,7 +18,7 @@ export const getTransactionById = async (id: string) => {
 		where: { id },
 		include: { financialAccount: true, category: true }
 	});
-	return transactionSchema.parse(transaction);
+	return transaction ? transactionSchema.parse(transaction) : null;
 };
 
 export const createTransaction = async (transaction: NewTransaction) => {
