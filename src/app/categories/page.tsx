@@ -11,7 +11,7 @@ import CategoryBox from './_components/categoryBox';
 const CategoryListPage = async () => {
 	const session = await getServerAuthSession();
 	if (!session) {
-		redirect('/login');
+		redirect('/sign-in');
 	}
 
 	const categories = await getCategoriesByUserId(session.user.id);
