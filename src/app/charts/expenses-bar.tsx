@@ -1,13 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import Chart from 'react-apexcharts';
 
 import { DefaultColors } from './default-colors';
-import LoadingComponent from './loading-component';
-const Chart = dynamic(() => import('react-apexcharts'), {
-	ssr: false,
-	loading: () => <LoadingComponent />
-});
 
 export type ExpensesBarProps = {
 	timeLabels: string[];
@@ -47,6 +42,7 @@ const ExpensesBar = ({ params }: { params: ExpensesBarProps }) => (
 			},
 			yaxis: {
 				labels: {
+					formatter: (value: number) => `${value}`,
 					style: {
 						fontSize: '1rem',
 						colors: '#b3b3b3'
