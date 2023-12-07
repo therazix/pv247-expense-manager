@@ -66,3 +66,13 @@ export const deleteTransaction = async (id: string) => {
 	]);
 	return transactionSchema.parse(deletedTransaction);
 };
+
+export const getTransactionsByFinancialAccountId = async (
+	financialAccountId: string
+) => {
+	const transactions = await db.transaction.findMany({
+		where: { financialAccountId },
+		include: { category: true }
+	});
+	return transactions;
+};
