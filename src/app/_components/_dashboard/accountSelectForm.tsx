@@ -14,7 +14,7 @@ const useGetAccounts = (id: string) =>
 	useQuery({
 		queryKey: ['get', 'financialAccount', id],
 		queryFn: async () => {
-			const response = await fetch(`api/finAcc/${id}`);
+			const response = await fetch(`api/financialAccount/all/${id}`);
 			return (await response.json()) as FinancialAccount[];
 		}
 	});

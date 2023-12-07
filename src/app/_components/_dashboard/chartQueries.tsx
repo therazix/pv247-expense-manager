@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { type TransactionEnhanced } from '@/types/transaction';
+import { FinancialAccount } from '@/types/financial-account';
 
 export const useGetTransaction = (id: string) =>
 	useQuery({
@@ -10,5 +11,14 @@ export const useGetTransaction = (id: string) =>
 		queryFn: async () => {
 			const response = await fetch(`api/transaction/${id}`);
 			return (await response.json()) as TransactionEnhanced[];
+		}
+	});
+
+export const useGetUniqueFinancialAccount = (id: string) =>
+	useQuery({
+		queryKey: ['get', 'unique', 'financialAccount', id],
+		queryFn: async () => {
+			const response = await fetch(`api/financialAccount/unique/${id}`);
+			return (await response.json()) as FinancialAccount;
 		}
 	});
