@@ -4,6 +4,9 @@
 # Environment file
 .env
 
+# JetBrains
+.idea/
+
 # Database
 *.db
 *.db-journal
