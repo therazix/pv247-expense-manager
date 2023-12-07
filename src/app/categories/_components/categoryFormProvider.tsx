@@ -95,7 +95,7 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 		return <Spinner />;
 	}
 	if (!session) {
-		redirect('/login');
+		redirect('/sign-in');
 	}
 
 	const onSubmit = (data: NewCategoryWithoutUserId) => {
