@@ -12,7 +12,7 @@ export const getUserById = async (id: string) => {
 		where: { id },
 		include: { financialAccounts: true, categories: true }
 	});
-	return userSchema.parse(user);
+	return user ? userSchema.parse(user) : null;
 };
 
 export const getUserByEmail = async (email: string) => {

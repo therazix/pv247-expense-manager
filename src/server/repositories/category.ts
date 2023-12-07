@@ -15,7 +15,7 @@ export const getCategoryById = async (id: string) => {
 		where: { id },
 		include: { user: true, transactions: true }
 	});
-	return categorySchema.parse(category);
+	return category ? categorySchema.parse(category) : null;
 };
 
 export const createCategory = async (category: NewCategory) => {

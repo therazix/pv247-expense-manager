@@ -19,7 +19,9 @@ export const getFinancialAccountById = async (id: string) => {
 		where: { id }
 	});
 
-	return financialAccountSchema.parse(financialAccount);
+	return financialAccount
+		? financialAccountSchema.parse(financialAccount)
+		: null;
 };
 
 export const createFinancialAccount = async (
@@ -28,7 +30,7 @@ export const createFinancialAccount = async (
 	const newFinancialAccount = await db.financialAccount.create({
 		data: {
 			name: financialAccount.name,
-			balance: financialAccount.balance,
+			balance: 0,
 			userId: financialAccount.userId,
 			currency: financialAccount.currency,
 			description: financialAccount.description
