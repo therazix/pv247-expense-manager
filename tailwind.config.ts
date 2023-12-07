@@ -1,5 +1,11 @@
 import type { Config } from 'tailwindcss';
 
+import { selectableColors } from './src/constants/selectables';
+
+const userSelectableColorsSafelist = Object.keys(selectableColors).map(
+	color => `bg-${color} text-${color}`
+);
+
 const config: Config = {
 	content: [
 		'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,14 +24,19 @@ const config: Config = {
 			'dark-gunmetal': '#141332',
 			'yankees-blue': '#1D1D41',
 			'cool-grey': '#8C89B4',
-			'go-green': '#02B15A',
-			'lust': '#E41414',
-			// Safelist colors
 			'maya-blue': '#64CFF6',
-			'majorelle-blue': '#6359E9'
+			'majorelle-blue': '#6359E9',
+			'white': '#FFFFFF',
+			...selectableColors
 		}
 	},
-	safelist: ['bg-maya-blue', 'text-maya-blue'],
+	safelist: [
+		'bg-maya-blue',
+		'bg-dark-gunmetal',
+		'text-maya-blue',
+		'text-white',
+		...userSelectableColorsSafelist
+	],
 	plugins: []
 };
 export default config;

@@ -19,7 +19,6 @@ const ComponentPage = () => (
 			percentChange={0.5}
 			iconBgColorVariant="maya-blue"
 			isNegative={false}
-			icon={<FaArrowTrendUp />}
 		/>
 		<CashFlowBox
 			title="Total Outcome"
@@ -28,7 +27,6 @@ const ComponentPage = () => (
 			percentChange={-1.42}
 			iconBgColorVariant="maya-blue"
 			isNegative
-			icon={<FaArrowTrendDown />}
 		/>
 		<div className="-mt-6 flex flex-wrap">
 			<ContentBox>

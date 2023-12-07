@@ -30,10 +30,14 @@ export const createCategory = async (category: NewCategory) => {
 	return categorySchema.parse(newCategory);
 };
 
-export const renameCategory = async (category: Category) => {
+export const updateCategory = async (category: Category) => {
 	const updatedCategory = await db.category.update({
 		where: { id: category.id },
-		data: { name: category.name }
+		data: {
+			name: category.name,
+			color: category.color,
+			icon: category.icon
+		}
 	});
 	return categorySchema.parse(updatedCategory);
 };
