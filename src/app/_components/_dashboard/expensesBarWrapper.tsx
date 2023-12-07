@@ -4,6 +4,7 @@ import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import ExpensesBar from '@/app/charts/expenses-bar';
 
 import { useGetTransaction } from './chartQueries';
+import NoDataComponent from './noDataComponent';
 
 const ExpensesBarWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
@@ -67,14 +68,7 @@ const ExpensesBarWrapper = () => {
 	const monthlyIncomeArray = uniqueMonths.map(month => monthlyIncome[month]);
 
 	if (monthlyExpensesArray.length === 0) {
-		return (
-			<div className="h-full w-full">
-				<p className="pt-5 text-center text-5xl">No data</p>
-				<p className="text-center text-2xl italic">
-					Please select another account
-				</p>
-			</div>
-		);
+		return <NoDataComponent />;
 	}
 
 	return (
