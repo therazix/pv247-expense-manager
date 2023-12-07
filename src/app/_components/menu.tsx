@@ -35,7 +35,7 @@ const Menu = () => {
 			</>
 		) : (
 			<MenuLink
-				href="/login"
+				href="/sign-in"
 				text="Log In"
 				icon={<MdLogin className="text-lg" />}
 			/>
