@@ -22,16 +22,15 @@ const Header = () => {
 	}
 
 	return (
-		<>
-			<div className="flex flex-row items-center justify-between pl-10 pr-10">
+		<div className="flex flex-row items-center justify-between pl-10 pr-10">
+			<div>
 				<h1 className="text-2xl font-bold">{financialAccount.name}</h1>
-				<h1 className="text-2xl font-bold">
-					{result.data?.balance} {result.data?.currency}
-				</h1>
+				<div className="pl-10 pr-10">{result.data?.description}</div>
 			</div>
-
-			<div className="pl-10 pr-10">{result.data?.description}</div>
-		</>
+			<h1 className="text-3xl font-bold">
+				{result.data?.balance} {result.data?.currency}
+			</h1>
+		</div>
 	);
 };
 

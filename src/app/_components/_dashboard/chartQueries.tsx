@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { type TransactionEnhanced } from '@/types/transaction';
-import { FinancialAccount } from '@/types/financial-account';
+import { type FinancialAccount } from '@/types/financial-account';
 
 export const useGetTransaction = (id: string) =>
 	useQuery({

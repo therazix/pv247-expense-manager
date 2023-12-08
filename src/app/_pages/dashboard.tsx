@@ -2,6 +2,9 @@ import AccountSelectorForm from '../_components/_dashboard/accountSelectForm';
 import CategoriesRadialChartWrapper from '../_components/_dashboard/categoriesRadialChartWrapper';
 import ExpensesBarWrapper from '../_components/_dashboard/expensesBarWrapper';
 import Header from '../_components/_dashboard/header';
+import StatusWidget from '../_components/_dashboard/statusWidget';
+import CashFlowBox from '../_components/cashflowBox';
+import Pill from '../_components/pill';
 
 const Dashboard = () => (
 	<div className="h-full w-full bg-dark-gunmetal">
@@ -13,12 +16,14 @@ const Dashboard = () => (
 		</div>
 
 		<div className="mt-10 w-full pl-10 pr-10">
-			<div className="mb-10 w-full rounded-3xl bg-[#1D1D41] pb-10 pt-10">
+			<div className="w-full rounded-3xl bg-[#1D1D41] pb-5 pt-5">
 				<Header />
 			</div>
 		</div>
 
-		<div className="mt-10 flex h-1/2 w-full flex-row flex-wrap gap-10 pl-10 pr-10 lg:flex-nowrap">
+		<StatusWidget />
+
+		<div className="flex h-1/2 w-full flex-row flex-wrap gap-10 pl-10 pr-10 lg:flex-nowrap">
 			<div className="h-96 w-full rounded-3xl bg-[#1D1D41] p-3 lg:h-full lg:w-3/5">
 				<h1 className="text-white pl-5 pt-2 text-2xl font-bold">
 					Expenses and incomes
