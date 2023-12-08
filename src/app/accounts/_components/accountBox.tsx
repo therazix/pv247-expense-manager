@@ -1,11 +1,15 @@
 'use client';
 
-import { FaPenToSquare, FaTrashCan, FaBookOpen } from 'react-icons/fa6';
+import {
+	FaPenToSquare,
+	FaTrashCan,
+	FaBookOpen,
+	FaLandmark
+} from 'react-icons/fa6';
 import { useContext, useEffect } from 'react';
 import format from 'date-fns/format';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { AiOutlineBank } from 'react-icons/ai';
 
 import ContentBox from '@/app/_components/contentBox';
 import { type FinancialAccount } from '@/types/financial-account';
@@ -56,7 +60,7 @@ const AccountBox = ({ account }: AccountBoxProps) => {
 			<div className="flex items-center justify-between">
 				<div className="flex items-center">
 					<div className="mr-6 flex h-10 w-10 self-center rounded bg-majorelle-blue p-3">
-						<AiOutlineBank />
+						<FaLandmark />
 					</div>
 					<div>
 						<p className={`text-${balanceColor} mr-6 text-base font-semibold`}>
