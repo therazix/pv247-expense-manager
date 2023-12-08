@@ -1,14 +1,13 @@
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
-import { MdLogin, MdLogout } from 'react-icons/md';
+import { MdLogin } from 'react-icons/md';
 import Image from 'next/image';
 
 import MenuLink from './menuLink';
 import MenuProfile from './menuProfile';
-import MenuButton from './menuButton';
 
 const Menu = () => {
 	const { data, status } = useSession();
@@ -17,29 +16,6 @@ const Menu = () => {
 	const toggleMenu = () => {
 		setIsMenuHidden(current => !current);
 	};
-
-	const profile =
-		status === 'authenticated' && data ? (
-			<>
-				<MenuProfile
-					username={data.user.name ? data.user.name : 'User'}
-					image={
-						data.user.image ? data.user.image : 'https://placehold.co/100x100'
-					}
-				/>
-				<MenuButton
-					text="Log Out"
-					icon={<MdLogout className="text-lg" />}
-					onClick={() => signOut()}
-				/>
-			</>
-		) : (
-			<MenuLink
-				href="/sign-in"
-				text="Log In"
-				icon={<MdLogin className="text-lg" />}
-			/>
-		);
 
 	return (
 		<nav className="w-full rounded-b-2xl bg-yankees-blue p-6 lg:h-screen lg:w-[260px] lg:rounded-r-2xl">
@@ -58,32 +34,37 @@ const Menu = () => {
 					<FaBars className="self-center text-3xl font-bold" />
 				</button>
 			</div>
-			<div className="lg:block" hidden={isMenuHidden}>
-				<div className="flex-col lg:flex">
-					<MenuLink
-						href="/dashboard"
-						text="Dashboard"
-						icon={<FaBars className="text-lg" />}
+			<div className="flex-col lg:flex" hidden={isMenuHidden}>
+				<MenuLink
+					href="/dashboard"
+					text="Dashboard"
+					icon={<FaBars className="text-lg" />}
+				/>
+				<MenuLink
+					href="/accounts"
+					text="Accounts"
+					icon={<FaBars className="text-lg" />}
+				/>
+				<MenuLink
+					href="/categories"
+					text="Categories"
+					icon={<FaBars className="text-lg" />}
+				/>
+				<hr className="my-5 text-majorelle-blue/[0.5]" />
+				{status === 'authenticated' && data ? (
+					<MenuProfile
+						username={data.user.name ? data.user.name : 'User'}
+						image={
+							data.user.image ? data.user.image : 'https://placehold.co/100x100'
+						}
 					/>
+				) : (
 					<MenuLink
-						href="/accounts"
-						text="Accounts"
-						icon={<FaBars className="text-lg" />}
+						href="/sign-in"
+						text="Sign In"
+						icon={<MdLogin className="text-lg" />}
 					/>
-					<MenuLink
-						href="/categories"
-						text="Categories"
-						icon={<FaBars className="text-lg" />}
-					/>
-					<hr className="my-5 text-majorelle-blue/[0.5]" />
-					<MenuLink
-						href="/settings"
-						text="Settings"
-						icon={<FaBars className="text-lg" />}
-					/>
-				</div>
-				{/* TODO: MenuProfile should be down */}
-				<div className="flex-1">{profile}</div>
+				)}
 			</div>
 		</nav>
 	);
