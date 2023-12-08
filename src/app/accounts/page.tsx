@@ -10,9 +10,8 @@ import ContentBox from '../_components/contentBox';
 
 const AccountListPage = async () => {
 	const session = await getServerAuthSession();
-
 	if (!session) {
-		redirect('/sign-in');
+		redirect('/sign-in?callbackUrl=/accounts');
 	}
 
 	const userAccounts: FinancialAccount[] = await getFinancialAccountsByUserId(

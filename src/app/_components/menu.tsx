@@ -36,7 +36,7 @@ const Menu = () => {
 			</div>
 			<div className="flex-col lg:flex" hidden={isMenuHidden}>
 				<MenuLink
-					href="/dashboard"
+					href="/"
 					text="Dashboard"
 					icon={<FaBars className="text-lg" />}
 				/>

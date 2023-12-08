@@ -2,7 +2,7 @@
 
 import { signIn, useSession } from 'next-auth/react';
 import { redirect, useSearchParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AuthError from '@/app/sign-in/errors';
 import Spinner from '@/app/_components/spinner';
@@ -15,20 +15,25 @@ const SignInPage = () => {
 
 	const error = searchParams.get('error');
 
-	useState(() => {
+	useEffect(() => {
 		if (error && Object.keys(AuthError).includes(error)) {
 			Object.entries(AuthError)
 				.find(([key, _]) => key === error)
 				?.map(message => setErrorMessage(message));
 		}
-	});
+	}, [error]);
 
 	if (status === 'loading') {
 		return <Spinner />;
 	}
 
 	if (status === 'authenticated') {
-		redirect('/');
+		const callbackUrl = searchParams.get('callbackUrl');
+		if (callbackUrl) {
+			redirect(callbackUrl);
+		} else {
+			redirect('/');
+		}
 	}
 
 	return (
