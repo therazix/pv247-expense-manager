@@ -7,7 +7,7 @@ const useDeleteAccountMutation = (session: Session | null) =>
 	useMutation({
 		mutationFn: async (account: FinancialAccount) => {
 			if (session?.user.id === account.userId) {
-				return await fetch(`/api/account/${account.id}`, {
+				return await fetch(`/api/financialAccount/${account.id}`, {
 					method: 'DELETE'
 				});
 			}

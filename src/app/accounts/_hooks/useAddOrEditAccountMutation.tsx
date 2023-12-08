@@ -17,7 +17,7 @@ const useAddOrEditAccountMutation = (
 		mutationFn: async (account: NewFinancialAccount) => {
 			if (selectedAccount) {
 				if (session?.user.id === selectedAccount.userId) {
-					return await fetch(`/api/account/${selectedAccount.id}`, {
+					return await fetch(`/api/financialAccount/${selectedAccount.id}`, {
 						method: 'PUT',
 						body: JSON.stringify(account)
 					});
@@ -28,7 +28,7 @@ const useAddOrEditAccountMutation = (
 				// TODO: add error handling later
 			}
 
-			return await fetch(`/api/account`, {
+			return await fetch(`/api/financialAccount`, {
 				method: 'POST',
 				body: JSON.stringify(account)
 			});
