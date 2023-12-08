@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useContext, useEffect, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { getUnixTime } from 'date-fns';
 
 import {
 	type NewFinancialAccount,
@@ -20,6 +19,7 @@ import Button from '@/app/_components/button';
 import ButtonTransparent from '@/app/_components/buttonTransparent';
 import Spinner from '@/app/_components/spinner';
 import { useLastUpdateContext } from '@/store/lastUpdate';
+import { createTimestamp } from '@/utils';
 
 import { DialogRefContext, SelectedAccountContext } from '../accountProviders';
 import useClearDialog from '../_hooks/useClearDialog';
@@ -60,7 +60,7 @@ const AccountFormProvider = ({ children }: AccountFormProviderProps) => {
 
 	useEffect(() => {
 		if (addOrEditAccountMutation.isSuccess) {
-			const lastUpdate = getUnixTime(new Date()).toString();
+			const lastUpdate = createTimestamp();
 			setLastUpdate(lastUpdate);
 			router.push(`/accounts?lastUpdate=${lastUpdate}`);
 		}

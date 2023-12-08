@@ -5,12 +5,12 @@ import { useContext, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { getUnixTime } from 'date-fns';
 
 import ContentBox from '@/app/_components/contentBox';
 import FaIcon from '@/app/_components/faIcon';
 import { type Category } from '@/types/category';
 import { useLastUpdateContext } from '@/store/lastUpdate';
+import { createTimestamp } from '@/utils';
 
 import {
 	DialogRefContext,
@@ -62,7 +62,7 @@ const CategoryBox = ({ category }: CategoryBoxProps) => {
 
 	useEffect(() => {
 		if (deleteCategoryMutation.isSuccess) {
-			const lastUpdate = getUnixTime(new Date()).toString();
+			const lastUpdate = createTimestamp();
 			setLastUpdate(lastUpdate);
 			router.push(`/categories?lastUpdate=${lastUpdate}`);
 		}

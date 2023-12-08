@@ -9,12 +9,12 @@ import {
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { getUnixTime } from 'date-fns';
 
 import ContentBox from '@/app/_components/contentBox';
 import { type FinancialAccount } from '@/types/financial-account';
 import useDeleteAccountMutation from '@/app/accounts/_hooks/useDeleteAccountMutation';
 import { useLastUpdateContext } from '@/store/lastUpdate';
+import { createTimestamp } from '@/utils';
 
 import { DialogRefContext, SelectedAccountContext } from '../accountProviders';
 
@@ -53,7 +53,7 @@ const AccountBox = ({ account }: AccountBoxProps) => {
 
 	useEffect(() => {
 		if (deleteAccountMutation.isSuccess) {
-			const lastUpdate = getUnixTime(new Date()).toString();
+			const lastUpdate = createTimestamp();
 			setLastUpdate(lastUpdate);
 			router.push(`/accounts?lastUpdate=${lastUpdate}`);
 		}
