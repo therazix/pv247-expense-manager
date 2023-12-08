@@ -1,14 +1,15 @@
 import { type MetadataRoute } from 'next';
 
+import { getAppUrl } from '@/utils';
+
 const robots = (): MetadataRoute.Robots => {
-	const deployUrl =
-		process.env.DEPLOY_URL?.replace(/\/+$/, '') ?? 'http://localhost';
+	const appUrl = getAppUrl();
 	return {
 		rules: {
 			userAgent: '*',
 			disallow: '/api/'
 		},
-		sitemap: `${deployUrl}/sitemap.xml`
+		sitemap: `${appUrl}/sitemap.xml`
 	};
 };
 

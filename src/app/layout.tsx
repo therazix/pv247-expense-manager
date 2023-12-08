@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
+import { getAppUrl } from '@/utils';
+
 import { Providers } from './providers';
 import Menu from './_components/menu';
 
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
 		default: 'EXPENSIO'
 	},
 	description: 'Your simple all-in-one expense manager.',
-	metadataBase: new URL(process.env.DEPLOY_URL ?? 'http://localhost:3000')
+	metadataBase: new URL(getAppUrl())
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (

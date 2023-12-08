@@ -1,11 +1,12 @@
 import { type MetadataRoute } from 'next';
 
+import { getAppUrl } from '@/utils';
+
 const sitemap = (): MetadataRoute.Sitemap => {
-	const deployUrl =
-		process.env.DEPLOY_URL?.replace(/\/+$/, '') ?? 'http://localhost';
+	const appUrl = getAppUrl();
 	return [
 		{
-			url: `${deployUrl}/sign-in`,
+			url: `${appUrl}/sign-in`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 1

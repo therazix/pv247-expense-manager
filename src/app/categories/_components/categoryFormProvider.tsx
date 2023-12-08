@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useContext, useEffect, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { getUnixTime } from 'date-fns';
 
 import {
 	type NewCategory,
@@ -17,6 +16,7 @@ import Button from '@/app/_components/button';
 import ButtonTransparent from '@/app/_components/buttonTransparent';
 import Spinner from '@/app/_components/spinner';
 import { useLastUpdateContext } from '@/store/lastUpdate';
+import { createTimestamp } from '@/utils';
 
 import {
 	DialogRefContext,
@@ -59,7 +59,7 @@ const CategoryFormProvider = ({ children }: CategoryFormProviderProps) => {
 
 	useEffect(() => {
 		if (addOrEditCategoryMutation.isSuccess) {
-			const lastUpdate = getUnixTime(new Date()).toString();
+			const lastUpdate = createTimestamp();
 			setLastUpdate(lastUpdate);
 			router.push(`/categories?lastUpdate=${lastUpdate}`);
 		}
