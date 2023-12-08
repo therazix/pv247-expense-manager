@@ -1,10 +1,11 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { MdLogin } from 'react-icons/md';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 import MenuLink from './menuLink';
 import MenuProfile from './menuProfile';
@@ -12,10 +13,16 @@ import MenuProfile from './menuProfile';
 const Menu = () => {
 	const { data, status } = useSession();
 	const [isMenuHidden, setIsMenuHidden] = useState(true);
+	const pathname = usePathname();
 
 	const toggleMenu = () => {
 		setIsMenuHidden(current => !current);
 	};
+
+	useEffect(() => {
+		// Close mobile menu when changing page
+		setIsMenuHidden(true);
+	}, [pathname]);
 
 	return (
 		<nav className="w-full rounded-b-2xl bg-yankees-blue p-6 lg:h-screen lg:w-[260px] lg:rounded-r-2xl">
