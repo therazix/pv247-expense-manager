@@ -3,13 +3,14 @@
 import { FaPenToSquare, FaTrashCan } from 'react-icons/fa6';
 import { useContext, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import format from 'date-fns/format';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { getUnixTime } from 'date-fns';
 
 import ContentBox from '@/app/_components/contentBox';
 import FaIcon from '@/app/_components/faIcon';
 import { type Category } from '@/types/category';
+import { useLastUpdateContext } from '@/store/lastUpdate';
 
 import {
 	DialogRefContext,
@@ -24,8 +25,10 @@ const defaultBgColor = 'dark-gunmetal';
 
 const CategoryBox = ({ category }: CategoryBoxProps) => {
 	const [, setSelectedCategory] = useContext(SelectedCategoryContext);
-	const router = useRouter();
+	const [, setLastUpdate] = useLastUpdateContext();
 	const dialogRef = useContext(DialogRefContext);
+
+	const router = useRouter();
 	const { data: session } = useSession();
 
 	const iconBgSelectableColor =
@@ -59,10 +62,11 @@ const CategoryBox = ({ category }: CategoryBoxProps) => {
 
 	useEffect(() => {
 		if (deleteCategoryMutation.isSuccess) {
-			const lastUpdate = format(new Date(), 'yyyy-MM-dd_HH:mm:ss');
+			const lastUpdate = getUnixTime(new Date()).toString();
+			setLastUpdate(lastUpdate);
 			router.push(`/categories?lastUpdate=${lastUpdate}`);
 		}
-	}, [deleteCategoryMutation, router]);
+	}, [deleteCategoryMutation, router, setLastUpdate]);
 
 	return (
 		<ContentBox>

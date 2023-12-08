@@ -7,13 +7,14 @@ import {
 	FaLandmark
 } from 'react-icons/fa6';
 import { useContext, useEffect } from 'react';
-import format from 'date-fns/format';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { getUnixTime } from 'date-fns';
 
 import ContentBox from '@/app/_components/contentBox';
 import { type FinancialAccount } from '@/types/financial-account';
 import useDeleteAccountMutation from '@/app/accounts/_hooks/useDeleteAccountMutation';
+import { useLastUpdateContext } from '@/store/lastUpdate';
 
 import { DialogRefContext, SelectedAccountContext } from '../accountProviders';
 
@@ -23,8 +24,10 @@ type AccountBoxProps = {
 
 const AccountBox = ({ account }: AccountBoxProps) => {
 	const [, setSelectedAccount] = useContext(SelectedAccountContext);
-	const router = useRouter();
+	const [, setLastUpdate] = useLastUpdateContext();
 	const dialogRef = useContext(DialogRefContext);
+
+	const router = useRouter();
 	const { data: session } = useSession();
 
 	const balanceColor = account.balance < 0 ? 'lust' : 'white';
@@ -50,10 +53,11 @@ const AccountBox = ({ account }: AccountBoxProps) => {
 
 	useEffect(() => {
 		if (deleteAccountMutation.isSuccess) {
-			const lastUpdate = format(new Date(), 'yyyy-MM-dd_HH:mm:ss');
+			const lastUpdate = getUnixTime(new Date()).toString();
+			setLastUpdate(lastUpdate);
 			router.push(`/accounts?lastUpdate=${lastUpdate}`);
 		}
-	}, [deleteAccountMutation, router]);
+	}, [deleteAccountMutation, router, setLastUpdate]);
 
 	return (
 		<ContentBox>

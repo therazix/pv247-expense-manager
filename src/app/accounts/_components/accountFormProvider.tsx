@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useContext, useEffect, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import format from 'date-fns/format';
+import { getUnixTime } from 'date-fns';
 
 import {
 	type NewFinancialAccount,
@@ -19,6 +19,7 @@ import AddButton from '@/app/_components/addButton';
 import Button from '@/app/_components/button';
 import ButtonTransparent from '@/app/_components/buttonTransparent';
 import Spinner from '@/app/_components/spinner';
+import { useLastUpdateContext } from '@/store/lastUpdate';
 
 import { DialogRefContext, SelectedAccountContext } from '../accountProviders';
 import useClearDialog from '../_hooks/useClearDialog';
@@ -32,9 +33,11 @@ const AccountFormProvider = ({ children }: AccountFormProviderProps) => {
 	const [selectedAccount, setSelectedAccount] = useContext(
 		SelectedAccountContext
 	);
+	const [, setLastUpdate] = useLastUpdateContext();
+	const dialogRef = useContext(DialogRefContext);
+
 	const [submitText, setSubmitText] = useState<string>('Add');
 
-	const dialogRef = useContext(DialogRefContext);
 	const router = useRouter();
 	const { data: session, status } = useSession();
 
@@ -57,10 +60,11 @@ const AccountFormProvider = ({ children }: AccountFormProviderProps) => {
 
 	useEffect(() => {
 		if (addOrEditAccountMutation.isSuccess) {
-			const lastUpdate = format(new Date(), 'yyyy-MM-dd_HH:mm:ss');
+			const lastUpdate = getUnixTime(new Date()).toString();
+			setLastUpdate(lastUpdate);
 			router.push(`/accounts?lastUpdate=${lastUpdate}`);
 		}
-	}, [addOrEditAccountMutation, router]);
+	}, [addOrEditAccountMutation, router, setLastUpdate]);
 
 	useEffect(() => {
 		if (selectedAccount) {
