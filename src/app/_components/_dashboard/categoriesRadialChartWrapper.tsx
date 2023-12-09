@@ -13,7 +13,8 @@ const CategoriesRadialChartWrapper = () => {
 	const result = useGetTransaction(financialAccount.id);
 
 	if (result.isLoading) return <LoadingComponent />;
-	if (result.isError) return <div>{result.error.message}</div>;
+	if (result.isError)
+		return <div className="pl-5">Error: {result.error.message}</div>;
 	if (result.data === undefined) return <div>---</div>;
 
 	const categories = result.data.map(param => param.category);
