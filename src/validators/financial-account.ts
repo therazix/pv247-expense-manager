@@ -11,7 +11,12 @@ export const financialAccountCreateSchema =
 		userId: z.string().min(1, { message: 'User ID is required' })
 	});
 
-export const financialAccountSchema = financialAccountCreateSchema.extend({
-	id: z.string().min(1, { message: 'ID is required' }),
+export const financialAccountUpdateSchema = financialAccountCreateSchema.extend(
+	{
+		id: z.string().min(1, { message: 'ID is required' })
+	}
+);
+
+export const financialAccountSchema = financialAccountUpdateSchema.extend({
 	balance: z.number()
 });
