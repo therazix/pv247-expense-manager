@@ -103,7 +103,7 @@ async function main() {
 	const startDate = new Date('2023-01-01');
 	const endDate = new Date('2023-12-31');
 
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < 500; i++) {
 		const randomFinancialAccountId =
 			financialAccountIds[
 				Math.floor(Math.random() * financialAccountIds.length)

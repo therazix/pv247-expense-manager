@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
-import { FinancialAccount } from '@/types/financial-account';
+import { type FinancialAccount } from '@/types/financial-account';
 
 type AccountInput = {
 	name: string;
@@ -26,7 +26,7 @@ const AccountSelectorForm = () => {
 	*/
 	const { register, handleSubmit } = useForm<AccountInput>();
 	const [financialAccount, setFinancialAccount] = useFinancialAccountSelect();
-	const result = useGetAccounts('c917dca2-3570-4cc4-965a-c60e1c176d07');
+	const result = useGetAccounts('04bc0c8d-1bc0-4344-90e8-1721ff363028');
 
 	if (result.isLoading) return <div>Loading...</div>;
 	if (result.isError) return <div>{result.error.message}</div>;
@@ -36,7 +36,7 @@ const AccountSelectorForm = () => {
 		<div className="mr-5 flex h-max flex-row items-center">
 			<h3 className="text-white text-xl font-bold">Account:</h3>
 
-			<form onChange={handleSubmit(data => console.log(data))}>
+			<form>
 				<select
 					{...register('name')}
 					className="m-1 bg-[#1D1D41] p-2 hover:cursor-pointer"

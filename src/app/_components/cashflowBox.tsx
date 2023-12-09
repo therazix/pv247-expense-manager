@@ -4,7 +4,7 @@ import FaIcon from './faIcon';
 
 type CashFlowBoxProps = {
 	title: string;
-	money: number;
+	money?: number;
 	currency: string;
 	iconBgColorVariant?: string;
 	icon?: string;
