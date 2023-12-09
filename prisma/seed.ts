@@ -1,11 +1,22 @@
 import { PrismaClient } from '@prisma/client';
-import { fi } from 'date-fns/locale';
 const prisma = new PrismaClient();
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 async function main() {
 	// Seed data for the User model
 
-	const xmanthId = '901373a2-351b-46d9-b30a-da4c9e8a7595';
+	/**
+	 * READ THIS
+	 * To seed database with transactions log into your accout and see your userId.
+	 * Create as many categories as you want and copy their ids.
+	 *
+	 * Run: npx prisma db seed
+	 */
+	const userId = '901373a2-351b-46d9-b30a-da4c9e8a7595';
+	const categoryIds = [
+		'd49a2eaa-433f-41dc-894f-78eeb1d92ae3',
+		'67083d72-e92f-4304-8a37-b67d45a7fc7d',
+		'8216b167-0aed-4e7f-b520-a3d5115ed616'
+	];
 
 	// Seed data for the FinancialAccount model
 	const financialAccount = await prisma.financialAccount.create({
@@ -15,7 +26,7 @@ async function main() {
 			balance: 1000000.0,
 			currency: 'CZK',
 			createdAt: new Date(),
-			userId: xmanthId
+			userId
 		}
 	});
 
@@ -26,7 +37,7 @@ async function main() {
 			balance: 200.0,
 			currency: 'CZK',
 			createdAt: new Date(),
-			userId: xmanthId
+			userId
 		}
 	});
 
@@ -37,7 +48,7 @@ async function main() {
 			balance: 80000.0,
 			currency: 'CZK',
 			createdAt: new Date(),
-			userId: xmanthId
+			userId
 		}
 	});
 
@@ -59,11 +70,6 @@ async function main() {
 		financialAccount.id,
 		financialAccount2.id,
 		financialAccount3.id
-	];
-	const categoryIds = [
-		'd49a2eaa-433f-41dc-894f-78eeb1d92ae3',
-		'67083d72-e92f-4304-8a37-b67d45a7fc7d',
-		'8216b167-0aed-4e7f-b520-a3d5115ed616'
 	];
 
 	const startDate = new Date('2023-01-01');
@@ -105,7 +111,7 @@ async function main() {
 	console.log('Seed data created successfully!');
 	console.log('Childs Account: ', financialAccount2.id);
 	console.log('Savings Account: ', financialAccount.id);
-	console.log('User: ', xmanthId);
+	console.log('User: ', userId);
 }
 main()
 	.then(async () => {
