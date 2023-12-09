@@ -1,5 +1,6 @@
 import {
 	deleteFinancialAccount,
+	getFinancialAccountById,
 	updateFinancialAccount
 } from '@/server/repositories/financialAccount';
 import { financialAccountCreateSchema } from '@/validators/financial-account';
@@ -12,7 +13,7 @@ export const PUT = async (
 
 	try {
 		const account = financialAccountCreateSchema.parse(bodyJson);
-		const updatedAccount = { ...account, id, balance: 0 };
+		const updatedAccount = { ...account, id };
 		const result = await updateFinancialAccount(updatedAccount);
 
 		return new Response(JSON.stringify(result), { status: 201 });

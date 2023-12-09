@@ -1,6 +1,7 @@
 import { financialAccountSchema } from '@/validators/financial-account';
 import {
 	type FinancialAccount,
+	type FinancialAccountWithoutBalance,
 	type NewFinancialAccount
 } from '@/types/financial-account';
 
@@ -40,13 +41,12 @@ export const createFinancialAccount = async (
 };
 
 export const updateFinancialAccount = async (
-	financialAccount: FinancialAccount
+	financialAccount: FinancialAccountWithoutBalance
 ) => {
 	const updatedFinancialAccount = await db.financialAccount.update({
 		where: { id: financialAccount.id },
 		data: {
 			name: financialAccount.name,
-			balance: financialAccount.balance,
 			userId: financialAccount.userId,
 			currency: financialAccount.currency,
 			description: financialAccount.description
