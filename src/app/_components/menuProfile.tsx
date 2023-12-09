@@ -32,7 +32,7 @@ const MenuProfile = ({ username, image }: MenuProfileProps) => {
 					<MenuProfileImage username={username} image={image} />
 					<MenuProfileName username={username} />
 				</div>
-				{isProfileOpen ? <FaAngleDown /> : <FaAngleUp />}
+				{isProfileOpen ? <FaAngleUp /> : <FaAngleDown />}
 			</button>
 			<MenuButton
 				className="my-2 w-full rounded-lg p-3 pl-5 hover:bg-majorelle-blue hover:font-semibold"
