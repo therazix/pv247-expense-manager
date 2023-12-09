@@ -20,7 +20,7 @@ const StatusWidget = () => {
 	}
 
 	if (result.isLoading || account.isLoading) return <Spinner />;
-	if (result.isError || account.isError) return <div>Error</div>;
+	if (result.isError || account.isError) return;
 
 	let totalIncome = 0;
 	let totalExpenses = 0;

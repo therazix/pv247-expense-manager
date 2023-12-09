@@ -19,7 +19,7 @@ const Header = () => {
 		return <LoadingComponent />;
 	}
 	if (result.error) {
-		return <div>Error</div>;
+		return <div className="mb-5 pl-5">Error: {result.error.message}</div>;
 	}
 
 	return (

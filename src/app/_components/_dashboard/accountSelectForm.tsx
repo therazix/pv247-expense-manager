@@ -28,7 +28,8 @@ const AccountSelectorForm = ({ id }: { id: string }) => {
 	const result = useGetAccounts(id);
 
 	if (result.isLoading) return <Spinner />;
-	if (result.isError) return <div>{result.error.message}</div>;
+	if (result.isError)
+		return <div className="pl-5 pr-5">Error: {result.error.message}</div>;
 	if (result.data === undefined) return <div>Corrupted data</div>;
 
 	return (
