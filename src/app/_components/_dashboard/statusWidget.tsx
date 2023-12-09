@@ -12,7 +12,6 @@ import {
 } from './chartQueries';
 
 const StatusWidget = () => {
-	console.log('StatusWidget');
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
 	const result = useGetTransaction(financialAccount.id);
 	const account = useGetUniqueFinancialAccount(financialAccount.id);
@@ -65,7 +64,7 @@ const StatusWidget = () => {
 		Math.round((totalExpenses / 100) * totalExpensesLastMonth) / 100;
 
 	return (
-		<div className="ml-5 mr-5 flex flex-row items-stretch justify-start gap-5">
+		<div className="mb-3 ml-6 mr-5 mt-3 flex flex-row flex-wrap items-stretch justify-start gap-0 md:mb-0 md:ml-5 md:mt-0 md:flex-nowrap md:gap-5">
 			<CashFlowBox
 				title="Total income"
 				money={totalIncome}

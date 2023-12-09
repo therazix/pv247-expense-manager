@@ -6,7 +6,7 @@ type ContentBoxProps = {
 };
 
 const ContentBox = ({ children, className = '' }: ContentBoxProps) => (
-	<div className={`${className} m-6 rounded-2xl bg-yankees-blue p-6`}>
+	<div className={`${className} m-3 rounded-2xl bg-yankees-blue p-6 md:m-6`}>
 		{children}
 	</div>
 );

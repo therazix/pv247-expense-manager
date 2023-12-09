@@ -57,7 +57,6 @@ const CategoriesRadialChartWrapper = () => {
 		(a, b) => categoryAmountsKeys.indexOf(a) - categoryAmountsKeys.indexOf(b)
 	);
 
-	console.log(categoryAmounts);
 	return (
 		<CategoriesRadialChart
 			params={{
