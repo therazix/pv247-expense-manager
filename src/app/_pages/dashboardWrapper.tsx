@@ -9,8 +9,8 @@ import {
 } from 'react';
 
 type FinancialAccountInfoType = {
-	name: string;
-	id: string;
+	name: string | null;
+	id: string | null;
 };
 
 type FinancialState = [
@@ -26,8 +26,8 @@ const DashboardWrapper: FC<{ children: ReactNode }> = ({ children }) => {
 	// TODO (Vojta) : Add logic for fetching financial accounts from API based on user ID
 
 	const financialAccountState = useState<FinancialAccountInfoType>({
-		name: 'Default',
-		id: 'Default'
+		name: null,
+		id: null
 	});
 
 	return (

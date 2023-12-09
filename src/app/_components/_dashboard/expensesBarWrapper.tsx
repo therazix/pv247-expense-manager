@@ -1,7 +1,8 @@
 'use client';
 
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
-import ExpensesBar from '@/app/charts/expenses-bar';
+import ExpensesBar from '@/app/_charts/expenses-bar';
+import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetTransaction } from './chartQueries';
 import NoDataComponent from './noDataComponent';
@@ -10,7 +11,7 @@ const ExpensesBarWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
 	const result = useGetTransaction(financialAccount.id);
 
-	if (result.isLoading) return <div>Loading...</div>;
+	if (result.isLoading) return <LoadingComponent />;
 	if (result.isError) return <div>{result.error.message}</div>;
 	if (result.data === undefined) return <div>---</div>;
 

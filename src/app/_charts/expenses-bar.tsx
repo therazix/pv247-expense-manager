@@ -1,6 +1,12 @@
 'use client';
 
-import Chart from 'react-apexcharts';
+const Chart = dynamic(() => import('react-apexcharts'), {
+	ssr: false,
+	loading: () => <Spinner />
+});
+import dynamic from 'next/dynamic';
+
+import Spinner from '../_components/spinner';
 
 import { DefaultColors } from './default-colors';
 

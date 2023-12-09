@@ -1,9 +1,7 @@
-import Dashboard from './_pages/dashboard';
-import DashboardWrapper from './_pages/dashboardWrapper';
 const Home = () => (
-	<DashboardWrapper>
-		<Dashboard />
-	</DashboardWrapper>
+	<div>
+		<h1>Home</h1>
+	</div>
 );
 
 export default Home;

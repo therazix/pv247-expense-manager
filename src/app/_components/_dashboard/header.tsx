@@ -1,6 +1,7 @@
 'use client';
 
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
+import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetUniqueFinancialAccount } from './chartQueries';
 
@@ -8,14 +9,14 @@ const Header = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
 	const result = useGetUniqueFinancialAccount(financialAccount.id);
 
-	if (financialAccount.name === 'Default') {
+	if (financialAccount.name === null) {
 		return (
 			<div className="ml-10">Please select account in right top corner</div>
 		);
 	}
 
 	if (result.isLoading) {
-		return <div>Loading...</div>;
+		return <LoadingComponent />;
 	}
 	if (result.error) {
 		return <div>Error</div>;

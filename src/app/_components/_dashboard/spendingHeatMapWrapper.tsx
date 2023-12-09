@@ -1,17 +1,23 @@
 'use client';
 
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
-import HeatMapChart, { type HeatMapChartProps } from '@/app/charts/heat-map';
+import HeatMapChart, { type HeatMapChartProps } from '@/app/_charts/heat-map';
+import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetTransaction } from './chartQueries';
+import NoDataComponent from './noDataComponent';
 
 const SpendingHeatMapWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
 	const result = useGetTransaction(financialAccount.id);
 
-	if (result.isLoading) return <div>Loading...</div>;
+	if (result.isLoading) return <LoadingComponent />;
 	if (result.isError) return <div>{result.error.message}</div>;
 	if (result.data === undefined) return <div>Something went wrong!</div>;
+
+	if (result.data.length === 0) {
+		return <NoDataComponent />;
+	}
 
 	// Calculate number of transactions per day in last year
 	const today = new Date();

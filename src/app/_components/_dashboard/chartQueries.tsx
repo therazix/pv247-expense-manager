@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { type TransactionEnhanced } from '@/types/transaction';
 import { type FinancialAccount } from '@/types/financial-account';
 
-export const useGetTransaction = (id: string) =>
+export const useGetTransaction = (id: string | null) =>
 	useQuery({
 		queryKey: ['get', 'transaction', id],
 		queryFn: async () => {
@@ -14,7 +14,7 @@ export const useGetTransaction = (id: string) =>
 		}
 	});
 
-export const useGetUniqueFinancialAccount = (id: string) =>
+export const useGetUniqueFinancialAccount = (id: string | null) =>
 	useQuery({
 		queryKey: ['get', 'unique', 'financialAccount', id],
 		queryFn: async () => {

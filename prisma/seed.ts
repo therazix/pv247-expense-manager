@@ -1,27 +1,21 @@
 import { PrismaClient } from '@prisma/client';
+import { fi } from 'date-fns/locale';
 const prisma = new PrismaClient();
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 async function main() {
 	// Seed data for the User model
 
-	// Seed data for the User model
-	const user = await prisma.user.create({
-		data: {
-			name: 'John Doe',
-			email: 'john.doe@example.com',
-			createdAt: new Date()
-		}
-	});
+	const xmanthId = '901373a2-351b-46d9-b30a-da4c9e8a7595';
 
 	// Seed data for the FinancialAccount model
 	const financialAccount = await prisma.financialAccount.create({
 		data: {
 			name: 'Savings Account',
 			description: 'Personal Savings',
-			balance: 5000.0,
-			currency: 'USD',
+			balance: 1000000.0,
+			currency: 'CZK',
 			createdAt: new Date(),
-			userId: user.id
+			userId: xmanthId
 		}
 	});
 
@@ -30,56 +24,20 @@ async function main() {
 			name: 'Childs account',
 			description: 'Account for my child',
 			balance: 200.0,
-			currency: 'USD',
+			currency: 'CZK',
 			createdAt: new Date(),
-			userId: user.id
+			userId: xmanthId
 		}
 	});
 
-	// Seed data for the Category model
-	const category = await prisma.category.create({
+	const financialAccount3 = await prisma.financialAccount.create({
 		data: {
-			name: 'Groceries',
-			color: '#FF5733',
-			icon: 'r',
-			userId: user.id
-		}
-	});
-
-	const category2 = await prisma.category.create({
-		data: {
-			name: 'Gifts',
-			color: '#32a852',
-			icon: 'x',
-			userId: user.id
-		}
-	});
-
-	const category3 = await prisma.category.create({
-		data: {
-			name: 'Clothes',
-			color: '#a832a0',
-			icon: 'x',
-			userId: user.id
-		}
-	});
-
-	// Seed data for the Account model
-	const account = await prisma.account.create({
-		data: {
-			userId: user.id,
-			type: 'Google',
-			provider: 'Google',
-			providerAccountId: 'google-123'
-		}
-	});
-
-	// Seed data for the Session model
-	const session = await prisma.session.create({
-		data: {
-			sessionToken: 'session-token-123',
-			userId: user.id,
-			expires: new Date(Date.now() + 3600000) // Expires in 1 hour
+			name: 'Credit Card',
+			description: 'Credit Card',
+			balance: 80000.0,
+			currency: 'CZK',
+			createdAt: new Date(),
+			userId: xmanthId
 		}
 	});
 
@@ -97,8 +55,16 @@ async function main() {
 
 	// Auto generate 50 transactions -----------------------
 
-	const financialAccountIds = [financialAccount.id, financialAccount2.id];
-	const categoryIds = [category.id, category2.id, category3.id];
+	const financialAccountIds = [
+		financialAccount.id,
+		financialAccount2.id,
+		financialAccount3.id
+	];
+	const categoryIds = [
+		'd49a2eaa-433f-41dc-894f-78eeb1d92ae3',
+		'67083d72-e92f-4304-8a37-b67d45a7fc7d',
+		'8216b167-0aed-4e7f-b520-a3d5115ed616'
+	];
 
 	const startDate = new Date('2023-01-01');
 	const endDate = new Date('2023-12-31');
@@ -139,7 +105,7 @@ async function main() {
 	console.log('Seed data created successfully!');
 	console.log('Childs Account: ', financialAccount2.id);
 	console.log('Savings Account: ', financialAccount.id);
-	console.log('User: ', user.id);
+	console.log('User: ', xmanthId);
 }
 main()
 	.then(async () => {
