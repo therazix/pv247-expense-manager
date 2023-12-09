@@ -22,7 +22,7 @@ export const FinancialAccountContext = createContext<FinancialState>(
 	undefined as never
 );
 
-const DashboardWrapper: FC<{ children: ReactNode }> = ({ children }) => {
+const DashboardProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	// TODO (Vojta) : Add logic for fetching financial accounts from API based on user ID
 
 	const financialAccountState = useState<FinancialAccountInfoType>({
@@ -40,4 +40,4 @@ const DashboardWrapper: FC<{ children: ReactNode }> = ({ children }) => {
 export const useFinancialAccountSelect = () =>
 	useContext(FinancialAccountContext);
 
-export default DashboardWrapper;
+export default DashboardProvider;

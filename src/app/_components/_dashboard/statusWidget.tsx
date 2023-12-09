@@ -1,14 +1,13 @@
 'use client';
 
-import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
-
 import CashFlowBox from '../cashflowBox';
 import Spinner from '../spinner';
 
 import {
 	useGetTransaction,
 	useGetUniqueFinancialAccount
-} from './chartQueries';
+} from './_components/chartQueries';
+import { useFinancialAccountSelect } from './dashboardWrapper';
 
 const StatusWidget = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

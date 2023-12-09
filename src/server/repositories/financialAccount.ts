@@ -1,6 +1,5 @@
 import { financialAccountSchema } from '@/validators/financial-account';
 import {
-	type FinancialAccount,
 	type FinancialAccountWithoutBalance,
 	type NewFinancialAccount
 } from '@/types/financial-account';

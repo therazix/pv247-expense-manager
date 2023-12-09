@@ -3,16 +3,6 @@ import { type NewTransaction } from '@/types/transaction';
 
 import { db } from '../db';
 
-export const getTransactionsByAccountId = async (
-	financialAccountId: string
-) => {
-	const transactions = await db.transaction.findMany({
-		where: { financialAccountId },
-		include: { category: true }
-	});
-	return transactionSchema.array().parse(transactions);
-};
-
 export const getTransactionById = async (id: string) => {
 	const transaction = await db.transaction.findUnique({
 		where: { id },
