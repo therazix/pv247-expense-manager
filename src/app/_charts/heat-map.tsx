@@ -2,12 +2,13 @@
 
 import dynamic from 'next/dynamic';
 
-import LoadingComponent from './loading-component';
+import Spinner from '../_components/spinner';
+
 import { DefaultColors } from './default-colors';
 
 const Chart = dynamic(() => import('react-apexcharts'), {
 	ssr: false,
-	loading: () => <LoadingComponent />
+	loading: () => <Spinner />
 });
 
 export type HeatMapChartProps = {

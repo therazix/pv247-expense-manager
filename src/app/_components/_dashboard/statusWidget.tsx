@@ -1,10 +1,9 @@
 'use client';
 
-import { FaAnchor, FaArrowTrendDown, FaArrowTrendUp } from 'react-icons/fa6';
-
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 
 import CashFlowBox from '../cashflowBox';
+import Spinner from '../spinner';
 
 import {
 	useGetTransaction,
@@ -16,11 +15,11 @@ const StatusWidget = () => {
 	const result = useGetTransaction(financialAccount.id);
 	const account = useGetUniqueFinancialAccount(financialAccount.id);
 
-	if (financialAccount.name === 'Default') {
+	if (financialAccount.name === null) {
 		return <div className="ml-10 mt-10"> </div>;
 	}
 
-	if (result.isLoading || account.isLoading) return <div>Loading...</div>;
+	if (result.isLoading || account.isLoading) return <Spinner />;
 	if (result.isError || account.isError) return <div>Error</div>;
 
 	let totalIncome = 0;
@@ -71,7 +70,7 @@ const StatusWidget = () => {
 				currency={account.data?.currency ?? ''}
 				percentChange={incomePercentChange}
 				iconBgColorVariant="maya-blue"
-				icon={<FaArrowTrendUp />}
+				icon="FaArrowTrendUp"
 				isNegative={false}
 			/>
 			<CashFlowBox
@@ -79,8 +78,8 @@ const StatusWidget = () => {
 				money={totalExpenses}
 				currency={account.data?.currency ?? ''}
 				percentChange={expensesPercentChange}
-				iconBgColorVariant="red-orange"
-				icon={<FaArrowTrendDown />}
+				iconBgColorVariant="marigold"
+				icon="FaArrowTrendDown"
 				isNegative
 			/>
 		</div>

@@ -1,7 +1,9 @@
 'use client';
 
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
-import CategoriesRadialChart from '@/app/charts/categories-radial';
+import CategoriesRadialChart from '@/app/_charts/categories-radial';
+import { selectableColors } from '@/constants/selectables';
+import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetTransaction } from './chartQueries';
 import NoDataComponent from './noDataComponent';
@@ -10,7 +12,7 @@ const CategoriesRadialChartWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
 	const result = useGetTransaction(financialAccount.id);
 
-	if (result.isLoading) return <div>Loading...</div>;
+	if (result.isLoading) return <LoadingComponent />;
 	if (result.isError) return <div>{result.error.message}</div>;
 	if (result.data === undefined) return <div>---</div>;
 
@@ -56,6 +58,16 @@ const CategoriesRadialChartWrapper = () => {
 	const sortedColors = colors.sort(
 		(a, b) => categoryAmountsKeys.indexOf(a) - categoryAmountsKeys.indexOf(b)
 	);
+
+	// Iterate over selectables and add the hex values to the colors
+	Object.entries(selectableColors).forEach(([key, value]) => {
+		sortedColors.forEach((color, index) => {
+			if (color === key) {
+				sortedColors[index] = value;
+			}
+		});
+	});
+	// Map sorted colort to their hex values
 
 	return (
 		<CategoriesRadialChart

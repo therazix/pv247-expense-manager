@@ -1,4 +1,6 @@
 import {
+	FaArrowTrendDown,
+	FaArrowTrendUp,
 	FaBasketball,
 	FaBowlRice,
 	FaCar,
@@ -24,6 +26,10 @@ const FaIcon = ({ icon, className = '' }: FaIconProps) => {
 			return <FaShirt className={className} />;
 		case 'FaBowlRice':
 			return <FaBowlRice className={className} />;
+		case 'FaArrowTrendUp':
+			return <FaArrowTrendUp className={className} />;
+		case 'FaArrowTrendDown':
+			return <FaArrowTrendDown className={className} />;
 
 		default:
 			return <FaExclamation />;

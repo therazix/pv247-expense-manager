@@ -6,6 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import { type FinancialAccount } from '@/types/financial-account';
 
+import Spinner from '../spinner';
+
 type AccountInput = {
 	name: string;
 };
@@ -19,22 +21,19 @@ const useGetAccounts = (id: string) =>
 		}
 	});
 
-const AccountSelectorForm = () => {
-	// TODO (Vojta) - Uncomment this when the financials are ready
-	/*
-    const status = await getServerAuthSession();
-	*/
-	const { register, handleSubmit } = useForm<AccountInput>();
-	const [financialAccount, setFinancialAccount] = useFinancialAccountSelect();
-	const result = useGetAccounts('04bc0c8d-1bc0-4344-90e8-1721ff363028');
+const AccountSelectorForm = ({ id }: { id: string }) => {
+	const { register } = useForm<AccountInput>();
+	const [_financialAccount, setFinancialAccount] = useFinancialAccountSelect();
 
-	if (result.isLoading) return <div>Loading...</div>;
+	const result = useGetAccounts(id);
+
+	if (result.isLoading) return <Spinner />;
 	if (result.isError) return <div>{result.error.message}</div>;
-	if (result.data === undefined) return <div>---</div>;
+	if (result.data === undefined) return <div>Corrupted data</div>;
 
 	return (
-		<div className="mr-5 flex h-max flex-row items-center">
-			<h3 className="text-white text-xl font-bold">Account:</h3>
+		<div className="mr-10 flex h-max flex-row items-center">
+			<h3 className="mr-5 text-xl font-bold text-white">Account:</h3>
 
 			<form>
 				<select
@@ -46,7 +45,7 @@ const AccountSelectorForm = () => {
 							name: e.target.selectedOptions[0].text
 						})
 					}
-					defaultValue={financialAccount.id}
+					defaultValue="Default"
 				>
 					<option value="Default" className="bg-[#1D1D41]" key="Default">
 						Default
