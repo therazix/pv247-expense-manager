@@ -3,10 +3,11 @@
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 
-import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import { type FinancialAccount } from '@/types/financial-account';
 
-import Spinner from '../spinner';
+import Spinner from '../../spinner';
+
+import { useFinancialAccountSelect } from '../dashboardWrapper';
 
 type AccountInput = {
 	name: string;
@@ -16,7 +17,7 @@ const useGetAccounts = (id: string) =>
 	useQuery({
 		queryKey: ['get', 'financialAccount', id],
 		queryFn: async () => {
-			const response = await fetch(`api/financialAccount/all/${id}`);
+			const response = await fetch(`api/financialAccount/user/${id}`);
 			return (await response.json()) as FinancialAccount[];
 		}
 	});

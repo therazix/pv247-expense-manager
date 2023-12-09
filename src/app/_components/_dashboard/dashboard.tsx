@@ -1,9 +1,9 @@
-import AccountSelectorForm from '../_components/_dashboard/accountSelectForm';
-import CategoriesRadialChartWrapper from '../_components/_dashboard/categoriesRadialChartWrapper';
-import ExpensesBarWrapper from '../_components/_dashboard/expensesBarWrapper';
-import Header from '../_components/_dashboard/header';
-import StatusWidget from '../_components/_dashboard/statusWidget';
-import SpendingHeatMapWrapper from '../_components/_dashboard/spendingHeatMapWrapper';
+import AccountSelectorForm from './_components/accountSelectForm';
+import CategoriesRadialChartWrapper from './categoriesRadialChartWrapper';
+import ExpensesBarWrapper from './expensesBarWrapper';
+import Header from './_components/header';
+import SpendingHeatMapWrapper from './spendingHeatMapWrapper';
+import StatusWidget from './statusWidget';
 
 const Dashboard = ({ userId }: { userId: string }) => (
 	<div className="h-full w-full overflow-y-scroll bg-dark-gunmetal">

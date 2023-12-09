@@ -1,11 +1,11 @@
 'use client';
 
-import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import ExpensesBar from '@/app/_charts/expenses-bar';
 import LoadingComponent from '@/app/_charts/loading-component';
 
-import { useGetTransaction } from './chartQueries';
-import NoDataComponent from './noDataComponent';
+import { useGetTransaction } from './_components/chartQueries';
+import NoDataComponent from './_components/noDataComponent';
+import { useFinancialAccountSelect } from './dashboardWrapper';
 
 const ExpensesBarWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

@@ -1,9 +1,9 @@
 'use client';
 
-import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetUniqueFinancialAccount } from './chartQueries';
+import { useFinancialAccountSelect } from '../dashboardWrapper';
 
 const Header = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

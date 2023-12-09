@@ -1,12 +1,12 @@
 'use client';
 
-import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import CategoriesRadialChart from '@/app/_charts/categories-radial';
 import { selectableColors } from '@/constants/selectables';
 import LoadingComponent from '@/app/_charts/loading-component';
 
-import { useGetTransaction } from './chartQueries';
-import NoDataComponent from './noDataComponent';
+import { useGetTransaction } from './_components/chartQueries';
+import NoDataComponent from './_components/noDataComponent';
+import { useFinancialAccountSelect } from './dashboardWrapper';
 
 const CategoriesRadialChartWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

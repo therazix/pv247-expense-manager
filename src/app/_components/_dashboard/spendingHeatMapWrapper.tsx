@@ -1,11 +1,11 @@
 'use client';
 
-import { useFinancialAccountSelect } from '@/app/_pages/dashboardWrapper';
 import HeatMapChart, { type HeatMapChartProps } from '@/app/_charts/heat-map';
 import LoadingComponent from '@/app/_charts/loading-component';
 
-import { useGetTransaction } from './chartQueries';
-import NoDataComponent from './noDataComponent';
+import { useGetTransaction } from './_components/chartQueries';
+import NoDataComponent from './_components/noDataComponent';
+import { useFinancialAccountSelect } from './dashboardWrapper';
 
 const SpendingHeatMapWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
@@ -62,7 +62,6 @@ const SpendingHeatMapWrapper = () => {
 					dayAndValue.value++;
 				}
 			});
-			return;
 		} else {
 			transactionsPerDayAndMonth[month].push({
 				day,

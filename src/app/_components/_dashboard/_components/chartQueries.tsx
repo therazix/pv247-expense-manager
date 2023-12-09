@@ -16,9 +16,9 @@ export const useGetTransaction = (id: string | null) =>
 
 export const useGetUniqueFinancialAccount = (id: string | null) =>
 	useQuery({
-		queryKey: ['get', 'unique', 'financialAccount', id],
+		queryKey: ['get', 'financialAccount', id],
 		queryFn: async () => {
-			const response = await fetch(`api/financialAccount/unique/${id}`);
+			const response = await fetch(`api/financialAccount/${id}`);
 			return (await response.json()) as FinancialAccount;
 		}
 	});
