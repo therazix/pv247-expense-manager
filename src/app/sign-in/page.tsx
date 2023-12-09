@@ -4,8 +4,8 @@ import { signIn, useSession } from 'next-auth/react';
 import { redirect, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import AuthError from '@/app/sign-in/errors';
 import Spinner from '@/app/_components/spinner';
+import { authErrors } from '@/constants/errors';
 
 const SignInPage = () => {
 	const searchParams = useSearchParams();
@@ -16,8 +16,8 @@ const SignInPage = () => {
 	const error = searchParams.get('error');
 
 	useEffect(() => {
-		if (error && Object.keys(AuthError).includes(error)) {
-			Object.entries(AuthError)
+		if (error && Object.keys(authErrors).includes(error)) {
+			Object.entries(authErrors)
 				.find(([key, _]) => key === error)
 				?.map(message => setErrorMessage(message));
 		}
