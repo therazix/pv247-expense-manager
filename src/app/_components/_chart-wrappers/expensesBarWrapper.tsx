@@ -5,7 +5,6 @@ import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetTransaction } from '../_dashboard/chartQueries';
 import NoDataComponent from '../noDataComponent';
-
 import { useFinancialAccountSelect } from '../_dashboard/dashboardProvider';
 
 const ExpensesBarWrapper = () => {
