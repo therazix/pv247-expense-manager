@@ -8,6 +8,6 @@ services:
       POSTGRES_PASSWORD: ExpensioDbPassword123
       POSTGRES_DB: expensio-db
     ports:
-      - "5432:5432"
+      - "5455:5432"
 
 
