@@ -6,8 +6,8 @@ import Spinner from '../spinner';
 import {
 	useGetTransaction,
 	useGetUniqueFinancialAccount
-} from './_components/chartQueries';
-import { useFinancialAccountSelect } from './dashboardWrapper';
+} from './chartQueries';
+import { useFinancialAccountSelect } from './dashboardProvider';
 
 const StatusWidget = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

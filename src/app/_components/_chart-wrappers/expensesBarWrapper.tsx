@@ -3,9 +3,10 @@
 import ExpensesBar from '@/app/_charts/expenses-bar';
 import LoadingComponent from '@/app/_charts/loading-component';
 
-import { useGetTransaction } from './_components/chartQueries';
-import NoDataComponent from './_components/noDataComponent';
-import { useFinancialAccountSelect } from './dashboardWrapper';
+import { useGetTransaction } from '../_dashboard/chartQueries';
+import NoDataComponent from '../noDataComponent';
+
+import { useFinancialAccountSelect } from '../_dashboard/dashboardProvider';
 
 const ExpensesBarWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
