@@ -4,9 +4,10 @@ import CategoriesRadialChart from '@/app/_charts/categories-radial';
 import { selectableColors } from '@/constants/selectables';
 import LoadingComponent from '@/app/_charts/loading-component';
 
-import { useGetTransaction } from './_components/chartQueries';
-import NoDataComponent from './_components/noDataComponent';
-import { useFinancialAccountSelect } from './dashboardWrapper';
+import { useGetTransaction } from '../_dashboard/chartQueries';
+import NoDataComponent from '../noDataComponent';
+
+import { useFinancialAccountSelect } from '../_dashboard/dashboardProvider';
 
 const CategoriesRadialChartWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

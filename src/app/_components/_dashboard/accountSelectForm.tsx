@@ -5,9 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { type FinancialAccount } from '@/types/financial-account';
 
-import Spinner from '../../spinner';
+import Spinner from '../spinner';
 
-import { useFinancialAccountSelect } from '../dashboardWrapper';
+import { useFinancialAccountSelect } from './dashboardProvider';
 
 type AccountInput = {
 	name: string;

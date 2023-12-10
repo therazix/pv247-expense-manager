@@ -3,7 +3,7 @@
 import LoadingComponent from '@/app/_charts/loading-component';
 
 import { useGetUniqueFinancialAccount } from './chartQueries';
-import { useFinancialAccountSelect } from '../dashboardWrapper';
+import { useFinancialAccountSelect } from './dashboardProvider';
 
 const Header = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();

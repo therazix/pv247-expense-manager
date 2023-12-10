@@ -1,8 +1,9 @@
-import AccountSelectorForm from './_components/accountSelectForm';
-import CategoriesRadialChartWrapper from './categoriesRadialChartWrapper';
-import ExpensesBarWrapper from './expensesBarWrapper';
-import Header from './_components/header';
-import SpendingHeatMapWrapper from './spendingHeatMapWrapper';
+import CategoriesRadialChartWrapper from '../_chart-wrappers/categoriesRadialChartWrapper';
+import ExpensesBarWrapper from '../_chart-wrappers/expensesBarWrapper';
+import SpendingHeatMapWrapper from '../_chart-wrappers/spendingHeatMapWrapper';
+
+import AccountSelectorForm from './accountSelectForm';
+import Header from './header';
 import StatusWidget from './statusWidget';
 
 const Dashboard = ({ userId }: { userId: string }) => (

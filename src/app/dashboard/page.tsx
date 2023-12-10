@@ -5,7 +5,7 @@ import { getServerAuthSession } from '@/server/auth';
 
 import Spinner from '../_components/spinner';
 import Dashboard from '../_components/_dashboard/dashboard';
-import DashboardProvider from '../_components/_dashboard/dashboardWrapper';
+import DashboardProvider from '../_components/_dashboard/dashboardProvider';
 
 const DashboardPage = async () => {
 	const session = await getServerAuthSession();
