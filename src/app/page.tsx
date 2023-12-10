@@ -1,7 +1,5 @@
-const Home = () => (
-	<div>
-		<h1>Home</h1>
-	</div>
-);
+import DashboardPage from './dashboard/page';
+
+const Home = () => <DashboardPage />;
 
 export default Home;
