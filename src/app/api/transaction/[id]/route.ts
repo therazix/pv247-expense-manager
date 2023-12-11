@@ -5,7 +5,7 @@ import {
 	getTransactionsByFinancialAccountId,
 	updateTransaction
 } from '@/server/repositories/transaction';
-import { transactionSchema } from '@/validators/transaction';
+import { transactionCreateSchema } from '@/validators/transaction';
 
 export const GET = async (
 	_req: Request,
@@ -27,7 +27,8 @@ export const PUT = async (
 	const bodyJson = await req.json();
 
 	try {
-		const transaction = transactionSchema.parse(bodyJson);
+		const transactionWithoutId = transactionCreateSchema.parse(bodyJson);
+		const transaction = { ...transactionWithoutId, id };
 
 		const updatedTransaction = await updateTransaction(transaction);
 
