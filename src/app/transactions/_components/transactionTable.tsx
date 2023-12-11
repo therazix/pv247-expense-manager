@@ -1,5 +1,7 @@
 'use client';
 
+import '../../../../public/mui-datatables.css';
+
 import MUIDataTable from 'mui-datatables';
 import { useContext } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -144,7 +146,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 				customBodyRenderLite: (dataIndex: number) => (
 					<div className="flex flex-row flex-wrap gap-3">
 						<button
-							className="rounded-md bg-majorelle-blue px-3 py-1 text-white hover:bg-yankees-blue"
+							className="rounded-md bg-majorelle-blue px-3 py-1 text-white hover:bg-blue-pigment"
 							onClick={() => {
 								openDialog(data[dataIndex].id);
 							}}
@@ -152,7 +154,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 							Edit
 						</button>
 						<button
-							className="rounded-md bg-rose-red px-3 py-1 text-white hover:bg-chocolate-cosmos"
+							className="rounded-md bg-rose-red px-3 py-1 text-white hover:bg-claret"
 							onClick={() => {
 								deleteTransactionMutation.mutate(data[dataIndex].id);
 							}}
@@ -169,9 +171,10 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 		download: false,
 		tableId: 'transactionTable',
 		responsive: 'vertical',
+		print: false,
 		customToolbarSelect: (selectedRows: { data: Array<any> }) => (
 			<button
-				className="mx-3 rounded-md bg-rose-red px-3 py-1 text-white hover:bg-chocolate-cosmos"
+				className="hover:bg-chocolate-cosmos mx-3 rounded-md bg-rose-red px-3 py-1 text-white"
 				onClick={() => {
 					const selectedIds = selectedRows.data.map(r => data[r.dataIndex].id);
 					deleteSelectedTransactionsMutation.mutate(selectedIds);

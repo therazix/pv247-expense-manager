@@ -28,7 +28,8 @@ const config: Config = {
 			'majorelle-blue': '#6359E9',
 			'white': '#FFFFFF',
 			'rose-red': '#C21858',
-			'chocolate-cosmos': '#4d0c26',
+			'claret': '#731035',
+			'blue-pigment': '#423ba1',
 			...selectableColors
 		}
 	},
