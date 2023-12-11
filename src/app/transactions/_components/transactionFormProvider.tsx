@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext, useEffect, useState } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,6 +13,8 @@ import AddButton from '@/app/_components/addButton';
 import ButtonTransparent from '@/app/_components/buttonTransparent';
 import Button from '@/app/_components/button';
 import { transactionCreateSchema } from '@/validators/transaction';
+import { createTimestamp } from '@/utils';
+import { useLastUpdateContext } from '@/store/lastUpdate';
 
 import {
 	DialogRefContext,
@@ -32,9 +34,11 @@ const TransactionFormProvider = ({
 		SelectedTransactionContext
 	);
 	const [submitText, setSubmitText] = useState<string>('Add');
+	const [lastUpdate, setLastUpdate] = useLastUpdateContext();
 
 	const dialogRef = useContext(DialogRefContext);
 	const router = useRouter();
+	const searchParams = useSearchParams();
 	const { data: session, status } = useSession();
 
 	const formMethods = useForm<NewTransaction>({
@@ -56,10 +60,29 @@ const TransactionFormProvider = ({
 
 	useEffect(() => {
 		if (addOrEditTransactionMutation.isSuccess) {
-			const lastUpdate = format(new Date(), 'yyyy-MM-dd_HH:mm:ss');
-			router.push(`/transactions?lastUpdate=${lastUpdate}`);
+			const lastUpdate = createTimestamp();
+			setLastUpdate(lastUpdate);
+
+			const financialAccountId = searchParams.get('financialAccountId');
+			const categoryId = searchParams.get('categoryId');
+			let href = `/transactions?lastUpdate=${lastUpdate}`;
+
+			if (financialAccountId) {
+				href += `&financialAccountId=${financialAccountId}`;
+			}
+			if (categoryId) {
+				href += `&categoryId=${categoryId}`;
+			}
+
+			router.push(href);
 		}
-	}, [addOrEditTransactionMutation, router]);
+	}, [
+		addOrEditTransactionMutation,
+		setLastUpdate,
+		lastUpdate,
+		searchParams,
+		router
+	]);
 
 	useEffect(() => {
 		// TODO: date is not selected when editing transaction
