@@ -39,7 +39,7 @@ const AccountBox = ({ account }: AccountBoxProps) => {
 		});
 
 	const openDetail = () => {
-		router.push(`/accounts/${account.id}`);
+		router.push(`/transactions?financialAccountId=${account.id}`);
 	};
 
 	const openDialog = () => {

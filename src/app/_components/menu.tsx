@@ -53,6 +53,11 @@ const Menu = () => {
 					icon={<FaBars className="text-lg" />}
 				/>
 				<MenuLink
+					href="/transactions"
+					text="Transactions"
+					icon={<FaBars className="text-lg" />}
+				/>
+				<MenuLink
 					href="/categories"
 					text="Categories"
 					icon={<FaBars className="text-lg" />}

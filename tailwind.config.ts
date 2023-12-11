@@ -27,6 +27,8 @@ const config: Config = {
 			'maya-blue': '#64CFF6',
 			'majorelle-blue': '#6359E9',
 			'white': '#FFFFFF',
+			'rose-red': '#C21858',
+			'chocolate-cosmos': '#4d0c26',
 			...selectableColors
 		}
 	},
