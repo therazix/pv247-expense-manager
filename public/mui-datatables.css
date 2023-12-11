@@ -1,1 +1,7 @@
-/* TODO: add styles here */
+.MuiPaper-root, .MuiTableCell-root {
+    background-color: #1D1D41 !important;
+}
+
+.MuiPaper-root * {
+    color: white;
+}
