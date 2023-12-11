@@ -38,7 +38,7 @@ const TransactionListPage = async ({
 		return (
 			<div>
 				<h1 className="mx-6 pt-6 text-3xl font-bold">Transactions</h1>
-				<div className="max-h-[80vh] w-full overflow-auto p-6 lg:max-h-[90vh] xl:max-h-full">
+				<div className="h-[80vh] w-full overflow-auto p-6 lg:h-[87vh] lg:max-h-[90vh] xl:max-h-full">
 					<TransactionTable transactions={transactions} />
 				</div>
 				<TransactionForm />
