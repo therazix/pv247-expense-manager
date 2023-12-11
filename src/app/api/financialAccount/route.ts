@@ -1,5 +1,21 @@
-import { createFinancialAccount } from '@/server/repositories/financialAccount';
+import { getServerAuthSession } from '@/server/auth';
+import {
+	createFinancialAccount,
+	getFinancialAccountsByUserId
+} from '@/server/repositories/financialAccount';
 import { financialAccountCreateSchema } from '@/validators/financial-account';
+
+export const GET = async () => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
+	const financialAccounts = await getFinancialAccountsByUserId(session.user.id);
+
+	return new Response(JSON.stringify(financialAccounts), { status: 200 });
+};
 
 export const POST = async (req: Request) => {
 	const bodyJson = await req.json();

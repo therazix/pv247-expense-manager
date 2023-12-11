@@ -1,5 +1,26 @@
-import { deleteCategory, updateCategory } from '@/server/repositories/category';
+import { NextResponse } from 'next/server';
+
+import {
+	deleteCategory,
+	getCategoryById,
+	updateCategory
+} from '@/server/repositories/category';
 import { categoryCreateSchema } from '@/validators/category';
+
+export const GET = async (
+	_req: Request,
+	{ params }: { params: { id: string } }
+) => {
+	if (params.id) {
+		const category = await getCategoryById(params.id);
+		return new Response(JSON.stringify(category), { status: 200 });
+	} else {
+		return NextResponse.json(
+			{ error: 'Category does not exist' },
+			{ status: 400 }
+		);
+	}
+};
 
 export const PUT = async (
 	req: Request,

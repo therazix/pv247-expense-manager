@@ -7,6 +7,18 @@ import {
 } from '@/server/repositories/financialAccount';
 import { financialAccountCreateSchema } from '@/validators/financial-account';
 
+export const GET = async (
+	_req: Request,
+	{ params }: { params: { id: string } }
+) => {
+	if (params.id) {
+		const financialAccount = await getFinancialAccountById(params.id);
+		return NextResponse.json(financialAccount);
+	} else {
+		return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+	}
+};
+
 export const PUT = async (
 	req: Request,
 	{ params: { id } }: { params: { id: string } }
@@ -38,17 +50,5 @@ export const DELETE = async (
 		console.log(error);
 
 		return new Response('Something went wrong', { status: 500 });
-	}
-};
-
-export const GET = async (
-	request: Request,
-	{ params }: { params: { id: string } }
-) => {
-	if (params.id) {
-		const financialAccounts = await getFinancialAccountById(params.id);
-		return NextResponse.json(financialAccounts);
-	} else {
-		return NextResponse.json({ error: 'Missing id' }, { status: 400 });
 	}
 };
