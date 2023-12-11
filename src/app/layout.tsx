@@ -20,7 +20,9 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
 	<html lang="en">
-		<body className={`${inter.className} block bg-dark-gunmetal lg:flex`}>
+		<body
+			className={`${inter.className} block overflow-y-hidden bg-dark-gunmetal lg:flex`}
+		>
 			<Providers>
 				<Menu />
 				<main className="h-screen grow">{children}</main>
