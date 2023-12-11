@@ -170,7 +170,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 	const options = {
 		download: false,
 		tableId: 'transactionTable',
-		responsive: 'vertical',
+		responsive: 'simple',
 		print: false,
 		customToolbarSelect: (selectedRows: { data: Array<any> }) => (
 			<button

@@ -7,7 +7,7 @@ import Header from './header';
 import StatusWidget from './statusWidget';
 
 const Dashboard = ({ userId }: { userId: string }) => (
-	<div className="h-full w-full overflow-y-scroll bg-dark-gunmetal">
+	<div className="h-[90vh] w-full overflow-y-scroll bg-dark-gunmetal lg:h-full ">
 		<div className="flex flex-row items-end justify-between">
 			<h1 className="ml-5 mt-5 h-max text-4xl font-bold text-white">
 				Dashboard
@@ -44,7 +44,7 @@ const Dashboard = ({ userId }: { userId: string }) => (
 			</div>
 		</div>
 
-		<div className="ml-10 mr-10 mt-10 h-auto rounded-3xl bg-[#1D1D41] p-3 pl-10 pr-10">
+		<div className="mb-30 ml-10 mr-10 mt-10 h-auto min-h-fit rounded-3xl bg-[#1D1D41] p-3 pl-10 pr-10 lg:mb-0">
 			<h1 className="text-2xl font-bold text-white">Number of transactions</h1>
 			<div className="h-96">
 				<SpendingHeatMapWrapper />
