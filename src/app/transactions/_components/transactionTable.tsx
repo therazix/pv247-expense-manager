@@ -2,7 +2,7 @@
 
 import '../../../../public/mui-datatables.css';
 
-import MUIDataTable from 'mui-datatables';
+import MUIDataTable, { type Responsive } from 'mui-datatables';
 import { useContext } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -170,7 +170,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 	const options = {
 		download: false,
 		tableId: 'transactionTable',
-		responsive: 'simple',
+		responsive: 'simple' as Responsive,
 		print: false,
 		customToolbarSelect: (selectedRows: { data: Array<any> }) => (
 			<button
