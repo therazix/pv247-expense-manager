@@ -16,7 +16,6 @@ import {
 	DialogRefContext,
 	SelectedTransactionContext
 } from '../transactionProviders';
-import useDeleteTransactionMutation from '../_hooks/useDeleteTransactionMutation';
 import useDeleteSelectedTransactionMutation from '../_hooks/useDeleteSelectedTransactionMutation';
 
 type TransactionTableProps = {
@@ -32,11 +31,6 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 
 	const financialAccountId = searchParams.get('financialAccountId');
 	const categoryId = searchParams.get('categoryId');
-
-	const deleteTransactionMutation = useDeleteTransactionMutation(
-		router,
-		setLastUpdate
-	);
 
 	const deleteSelectedTransactionsMutation =
 		useDeleteSelectedTransactionMutation(router, setLastUpdate);
@@ -156,7 +150,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 						<button
 							className="rounded-md bg-rose-red px-3 py-1 text-white hover:bg-claret"
 							onClick={() => {
-								deleteTransactionMutation.mutate(data[dataIndex].id);
+								deleteSelectedTransactionsMutation.mutate([data[dataIndex].id]);
 							}}
 						>
 							Delete

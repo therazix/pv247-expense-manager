@@ -1,3 +1,5 @@
+import format from 'date-fns/format';
+
 import { transactionSchema } from '@/validators/transaction';
 import {
 	type TransactionSearchParams,
@@ -55,19 +57,7 @@ export const updateTransaction = async (transaction: Transaction) => {
 	return transactionSchema.parse(updatedTransaction);
 };
 
-export const deleteTransaction = async (id: string) => {
-	const transaction = await db.transaction.findUnique({
-		where: { id }
-	});
-	if (!transaction) throw new Error('Transaction not found');
-
-	const deletedTransaction = deleteTransactionTransaction(
-		transaction as Transaction
-	);
-	return transactionSchema.parse(deletedTransaction);
-};
-
-const deleteTransactionTransaction = async (transaction: Transaction) => {
+const deleteTransaction = async (transaction: Transaction) => {
 	const [deletedTransaction, _financialAcc] = await db.$transaction([
 		db.transaction.delete({
 			where: { id: transaction.id },
@@ -96,7 +86,7 @@ export const deleteTransactions = async (ids: string[]) => {
 	const deletedTransactions: Transaction[] = [];
 
 	for (const transaction of transactions) {
-		const deletedTransaction = await deleteTransactionTransaction(
+		const deletedTransaction = await deleteTransaction(
 			transaction as Transaction
 		);
 
@@ -154,7 +144,8 @@ export const searchTransactions = async (
 				transaction.categoryId === null ? undefined : transaction.categoryId, // Why it throws zodError without this?
 			categoryName: transaction.category?.name,
 			financialAccountName: transaction.financialAccount?.name,
-			dateString: transaction.datetime.toLocaleDateString()
+			dateString: transaction.datetime.toLocaleDateString(),
+			dateInputValue: format(transaction.datetime, 'yyyy-MM-dd')
 		}))
 	);
 };

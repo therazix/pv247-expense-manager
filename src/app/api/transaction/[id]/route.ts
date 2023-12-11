@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 import {
-	deleteTransaction,
 	getTransactionsByFinancialAccountId,
 	updateTransaction
 } from '@/server/repositories/transaction';
@@ -33,21 +32,6 @@ export const PUT = async (
 		const updatedTransaction = await updateTransaction(transaction);
 
 		return new Response(JSON.stringify(updatedTransaction), { status: 201 });
-	} catch (error) {
-		console.log(error);
-
-		return new Response('Something went wrong', { status: 500 });
-	}
-};
-
-export const DELETE = async (
-	_req: Request,
-	{ params: { id } }: { params: { id: string } }
-) => {
-	try {
-		await deleteTransaction(id);
-
-		return new Response(null, { status: 204 });
 	} catch (error) {
 		console.log(error);
 
