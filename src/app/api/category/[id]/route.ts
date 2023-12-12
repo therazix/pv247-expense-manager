@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server';
-
 import {
 	deleteCategory,
 	getCategoryById,
@@ -15,10 +13,7 @@ export const GET = async (
 		const category = await getCategoryById(params.id);
 		return new Response(JSON.stringify(category), { status: 200 });
 	} else {
-		return NextResponse.json(
-			{ error: 'Category does not exist' },
-			{ status: 400 }
-		);
+		return new Response('Category does not exist', { status: 400 });
 	}
 };
 
