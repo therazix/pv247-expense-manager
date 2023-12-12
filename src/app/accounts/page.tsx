@@ -21,7 +21,9 @@ const AccountListPage = async () => {
 	if (userAccounts.length === 0) {
 		return (
 			<div>
-				<h1 className="mx-6 pt-6 text-3xl font-bold">Accounts</h1>
+				<h1 className="mx-6 pt-6 text-center text-3xl font-bold sm:text-left">
+					Accounts
+				</h1>
 				<ContentBox>
 					<div className="flex items-center justify-center">
 						<p>You have no account yet</p>
@@ -34,7 +36,9 @@ const AccountListPage = async () => {
 
 	return (
 		<div>
-			<h1 className="mx-6 pt-6 text-3xl font-bold">Accounts</h1>
+			<h1 className="mx-6 pt-6 text-center text-3xl font-bold sm:text-left">
+				Accounts
+			</h1>
 			<div className="flex flex-wrap">
 				{userAccounts.map(account => (
 					<div key={account.id} className="w-full md:w-1/2 xl:w-1/3">

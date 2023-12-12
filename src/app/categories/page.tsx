@@ -19,7 +19,9 @@ const CategoryListPage = async () => {
 	if (categories.length === 0) {
 		return (
 			<>
-				<h1 className="mx-6 pt-6 text-3xl font-bold">Categories</h1>
+				<h1 className="mx-6 pt-6 text-center text-3xl font-bold sm:text-left">
+					Categories
+				</h1>
 				<ContentBox>
 					<div className="flex items-center justify-center">
 						<p>You have no category yet</p>
@@ -32,7 +34,9 @@ const CategoryListPage = async () => {
 
 	return (
 		<div>
-			<h1 className="mx-6 pt-6 text-3xl font-bold">Categories</h1>
+			<h1 className="mx-6 pt-6 text-center text-3xl font-bold sm:text-left">
+				Categories
+			</h1>
 			<div className="flex flex-wrap">
 				{categories.map(category => (
 					<div key={category.id} className="w-full md:w-1/2 xl:w-1/3">
