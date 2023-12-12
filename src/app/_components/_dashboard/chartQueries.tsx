@@ -2,15 +2,15 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { type TransactionEnhanced } from '@/types/transaction';
 import { type FinancialAccount } from '@/types/financial-account';
+import { type ChartTransaction } from '@/types/transaction';
 
 export const useGetTransaction = (id: string | null) =>
 	useQuery({
 		queryKey: ['get', 'transaction', id],
 		queryFn: async () => {
 			const response = await fetch(`api/transaction/${id}`);
-			return (await response.json()) as TransactionEnhanced[];
+			return (await response.json()) as ChartTransaction[];
 		}
 	});
 

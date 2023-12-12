@@ -18,7 +18,7 @@ const ExpensesBarWrapper = () => {
 
 	const months = result.data
 		.map(param => ({
-			date: new Date(param.datetime),
+			date: new Date(param.date),
 			data: param // Optionally include the entire object for reference
 		}))
 		.sort((a, b) => {
@@ -35,7 +35,7 @@ const ExpensesBarWrapper = () => {
 	const uniqueMonths = Array.from(
 		new Set(
 			months.map(transaction => {
-				const date = transaction.date;
+				const date = new Date(transaction.date);
 				return `${date.toLocaleString('en-us', {
 					month: 'short'
 				})}-${date.getFullYear()}`;
@@ -52,7 +52,7 @@ const ExpensesBarWrapper = () => {
 	});
 
 	result.data.forEach(transaction => {
-		const date = new Date(transaction.datetime);
+		const date = new Date(transaction.date);
 		const monthYear = `${date.toLocaleString('en-us', {
 			month: 'short'
 		})}-${date.getFullYear()}`;

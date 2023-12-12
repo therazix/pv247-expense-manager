@@ -25,7 +25,7 @@ const SpendingHeatMapWrapper = () => {
 	const lastYear = new Date();
 	lastYear.setFullYear(today.getFullYear() - 1);
 	const lastYearTransactions = result.data.filter(transaction => {
-		const transactionDate = new Date(transaction.datetime);
+		const transactionDate = new Date(transaction.date);
 		return transactionDate > lastYear;
 	});
 
@@ -37,7 +37,7 @@ const SpendingHeatMapWrapper = () => {
 	} = {};
 
 	lastYearTransactions.forEach(transaction => {
-		const transactionDate = new Date(transaction.datetime);
+		const transactionDate = new Date(transaction.date);
 		const month = transactionDate.toLocaleString('default', { month: 'short' });
 		const day = transactionDate.getDate().toString();
 		if (transactionsPerDayAndMonth[month] === undefined) {

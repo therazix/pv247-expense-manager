@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type Transaction, type NewTransaction } from '@/types/transaction';
+import { parseDate } from '@/utils';
 
 const useClearDialog = (
 	formMethods: UseFormReturn<NewTransaction>,
@@ -13,7 +14,7 @@ const useClearDialog = (
 			name: '',
 			description: '',
 			amount: 0,
-			datetime: new Date(), // does not set today's date
+			dateString: parseDate(new Date()),
 			categoryId: '',
 			financialAccountId: undefined
 		});
