@@ -57,27 +57,45 @@ export const createTransaction = async (transaction: NewTransaction) => {
 };
 
 export const updateTransaction = async (transaction: UpdateTransaction) => {
-	const updatedTransaction = await db.transaction.update({
+	const oldTransaction = await db.transaction.findUnique({
 		where: { id: transaction.id },
-		data: {
-			name: transaction.name ?? null,
-			description: transaction.description ?? null,
-			amount: transaction.amount,
-			date: transaction.dateString
-				? new Date(transaction.dateString)
-				: new Date(),
-			financialAccount: {
-				connect: { id: transaction.financialAccountId }
-			},
-			category: transaction.categoryId
-				? {
-						connect: { id: transaction.categoryId }
-				  }
-				: {
-						disconnect: true
-				  }
-		}
+		select: { amount: true }
 	});
+	if (!oldTransaction) throw new Error('Transaction not found');
+
+	const amountDiff = transaction.amount - oldTransaction.amount;
+
+	const updatedTransaction = await db.$transaction([
+		db.transaction.update({
+			where: { id: transaction.id },
+			data: {
+				name: transaction.name ?? null,
+				description: transaction.description ?? null,
+				amount: transaction.amount,
+				date: transaction.dateString
+					? new Date(transaction.dateString)
+					: new Date(),
+				financialAccount: {
+					connect: { id: transaction.financialAccountId }
+				},
+				category: transaction.categoryId
+					? {
+							connect: { id: transaction.categoryId }
+					  }
+					: {
+							disconnect: true
+					  }
+			}
+		}),
+		db.financialAccount.update({
+			where: { id: transaction.financialAccountId },
+			data: {
+				balance: {
+					increment: amountDiff
+				}
+			}
+		})
+	]);
 	return transactionSchema.parse(updatedTransaction);
 };
 
