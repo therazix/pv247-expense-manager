@@ -43,16 +43,24 @@ export const createTransaction = async (transaction: NewTransaction) => {
 };
 
 export const updateTransaction = async (transaction: Transaction) => {
+	let updateData = {};
+
+	if (transaction.categoryId) {
+		updateData = {
+			categoryId: transaction.categoryId
+		};
+	}
+	updateData = {
+		...updateData,
+		name: transaction.name,
+		description: transaction.description,
+		amount: transaction.amount,
+		datetime: transaction.datetime
+	};
+
 	const updatedTransaction = await db.transaction.update({
 		where: { id: transaction.id },
-		data: {
-			name: transaction.name,
-			description: transaction.description,
-			amount: transaction.amount,
-			datetime: transaction.datetime,
-			financialAccountId: transaction.financialAccountId,
-			categoryId: transaction.categoryId
-		}
+		data: updateData
 	});
 	return transactionSchema.parse(updatedTransaction);
 };
