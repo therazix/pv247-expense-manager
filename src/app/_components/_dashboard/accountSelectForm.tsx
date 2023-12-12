@@ -34,7 +34,7 @@ const AccountSelectorForm = () => {
 	if (result.data === undefined) return <div>Corrupted data</div>;
 
 	return (
-		<div className="mr-10 flex h-max flex-row items-center">
+		<div className="mr-10 flex h-max w-fit flex-row items-center">
 			<h3 className="mr-5 text-xl font-bold text-white">Account:</h3>
 
 			<form>

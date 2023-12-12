@@ -8,11 +8,13 @@ import StatusWidget from './statusWidget';
 
 const Dashboard = () => (
 	<div className="h-[90vh] w-full overflow-y-scroll bg-dark-gunmetal lg:h-full ">
-		<div className="flex flex-row items-end justify-between">
-			<h1 className="ml-5 mt-5 h-max text-4xl font-bold text-white">
+		<div className="block justify-between sm:flex sm:flex-row sm:items-end">
+			<h1 className="ml-5 mt-5 h-max text-center text-4xl font-bold text-white sm:text-left">
 				Dashboard
 			</h1>
-			<AccountSelectorForm />
+			<div className="mt-5 flex justify-end sm:mt-0">
+				<AccountSelectorForm />
+			</div>
 		</div>
 
 		<div className="mt-10 w-full pl-10 pr-10">
