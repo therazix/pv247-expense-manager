@@ -25,7 +25,7 @@ export const POST = async (req: Request) => {
 
 		return new Response(JSON.stringify(newTransaction), { status: 201 });
 	} catch (error) {
-		return new Response('Something went wrong', { status: 500 });
+		return new Response('Transaction could not be created', { status: 500 });
 	}
 };
 
@@ -48,6 +48,6 @@ export const DELETE = async (req: Request) => {
 	} catch (error) {
 		console.log(error);
 
-		return new Response('Something went wrong', { status: 500 });
+		return new Response('Transaction could not be deleted', { status: 500 });
 	}
 };
