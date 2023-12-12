@@ -15,7 +15,7 @@ const useClearDialog = (
 		formMethods.reset({
 			name: '',
 			currency: '',
-			description: undefined
+			description: ''
 		});
 		setSelectedAccount(null);
 		setSubmitText('Add');
