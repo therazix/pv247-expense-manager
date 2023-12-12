@@ -28,7 +28,7 @@ const TransactionListPage = async ({
 	if (transactions.length === 0) {
 		return (
 			<>
-				<h1 className="mx-6 pt-6 text-center text-3xl font-bold sm:text-left">
+				<h1 className="mx-6 py-6 text-center text-3xl font-bold sm:text-left">
 					Transactions
 				</h1>
 				<ContentBox>
@@ -42,10 +42,10 @@ const TransactionListPage = async ({
 	} else {
 		return (
 			<div>
-				<h1 className="mx-6 pt-6 text-center text-3xl font-bold sm:text-left">
+				<h1 className="mx-6 py-6 text-center text-3xl font-bold sm:text-left">
 					Transactions
 				</h1>
-				<div className="h-[80vh] w-full overflow-auto p-6 lg:h-[87vh] lg:max-h-[90vh] xl:max-h-full">
+				<div className="h-[80vh] w-full overflow-auto px-6 pb-6 lg:h-[87vh] lg:max-h-[90vh] xl:max-h-full">
 					<TransactionTable transactions={transactions} />
 				</div>
 				<TransactionForm />
