@@ -13,11 +13,11 @@ type AccountInput = {
 	name: string;
 };
 
-const useGetAccounts = (id: string) =>
+const useGetAccounts = () =>
 	useQuery({
-		queryKey: ['get', 'financialAccount', id],
+		queryKey: ['get', 'financialAccounts'],
 		queryFn: async () => {
-			const response = await fetch(`api/financialAccount/user/${id}`);
+			const response = await fetch(`/api/financialAccount`);
 			return (await response.json()) as FinancialAccount[];
 		}
 	});
@@ -26,7 +26,7 @@ const AccountSelectorForm = ({ id }: { id: string }) => {
 	const { register } = useForm<AccountInput>();
 	const [_financialAccount, setFinancialAccount] = useFinancialAccountSelect();
 
-	const result = useGetAccounts(id);
+	const result = useGetAccounts();
 
 	if (result.isLoading) return <Spinner />;
 	if (result.isError)

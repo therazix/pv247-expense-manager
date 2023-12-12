@@ -3,11 +3,18 @@ import {
 	updateTransaction
 } from '@/server/repositories/transaction';
 import { transactionCreateSchema } from '@/validators/transaction';
+import { getServerAuthSession } from '@/server/auth';
 
 export const GET = async (
 	_req: Request,
 	{ params }: { params: { id: string } }
 ) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	if (params.id) {
 		const transactions = await getTransactionsByFinancialAccountId(params.id);
 		return new Response(JSON.stringify(transactions), { status: 200 });
@@ -20,6 +27,12 @@ export const PUT = async (
 	req: Request,
 	{ params: { id } }: { params: { id: string } }
 ) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	const bodyJson = await req.json();
 
 	try {

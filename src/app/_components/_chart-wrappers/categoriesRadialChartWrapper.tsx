@@ -12,12 +12,22 @@ const CategoriesRadialChartWrapper = () => {
 	const [financialAccount, _setFinancialAccount] = useFinancialAccountSelect();
 	const result = useGetTransaction(financialAccount.id);
 
+	// Create a dummy category for transactions without a category
+	const nullCategory = {
+		id: 'no_id',
+		name: 'No category',
+		color: 'grey'
+	};
+
 	if (result.isLoading) return <LoadingComponent />;
 	if (result.isError)
 		return <div className="pl-5">Error: {result.error.message}</div>;
 	if (result.data === undefined) return <div>---</div>;
 
-	const categories = result.data.map(param => param.category);
+	const categories = result.data
+		.map(param => param.category)
+		.map(category => category ?? nullCategory);
+
 	const uniqueNamesSet = new Set();
 
 	if (categories.length === 0) {
@@ -41,7 +51,7 @@ const CategoriesRadialChartWrapper = () => {
 
 	// count the total amount of each category
 	result.data.forEach(transaction => {
-		const category = transaction.category;
+		const category = transaction.category ?? nullCategory;
 		if (transaction.amount > 0) return; // If the transaction is income, skip it
 		categoryAmounts[category.name] -= transaction.amount; // Add the amount of spends to the category
 	});
