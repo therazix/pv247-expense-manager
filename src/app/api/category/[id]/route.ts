@@ -46,7 +46,7 @@ export const PUT = async (
 	} catch (error) {
 		console.log(error);
 
-		return new Response('Something went wrong', { status: 500 });
+		return new Response('Category could not be updated', { status: 500 });
 	}
 };
 
@@ -67,6 +67,6 @@ export const DELETE = async (
 	} catch (error) {
 		console.log(error);
 
-		return new Response('Something went wrong', { status: 500 });
+		return new Response('Category could not be deleted', { status: 500 });
 	}
 };
