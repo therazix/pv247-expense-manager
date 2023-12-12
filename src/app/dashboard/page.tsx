@@ -10,14 +10,13 @@ import DashboardProvider from '../_components/_dashboard/dashboardProvider';
 const DashboardPage = async () => {
 	const session = await getServerAuthSession();
 	if (!session) {
-		redirect('/sign-in');
+		redirect('/sign-in?callbackUrl=/dashboard');
 	}
 
-	const id = session.user.id;
 	return (
 		<DashboardProvider>
 			<Suspense fallback={<Spinner />}>
-				<Dashboard userId={id} />
+				<Dashboard />
 			</Suspense>
 		</DashboardProvider>
 	);
