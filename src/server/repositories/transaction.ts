@@ -135,7 +135,13 @@ export const deleteTransactions = async (ids: string[]) => {
 		deletedTransactions.push(deletedTransaction as Transaction);
 	}
 
-	return transactionSchema.array().parse(deletedTransactions);
+	return transactionSchema.array().parse(
+		deletedTransactions.map(t => ({
+			...t,
+			dateString: parseDate(t.date),
+			categoryId: t.categoryId ?? undefined
+		}))
+	);
 };
 
 export const getTransactionsByFinancialAccountId = async (
