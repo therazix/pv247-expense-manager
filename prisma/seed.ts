@@ -57,7 +57,7 @@ async function main() {
 		data: {
 			name: 'Grocery Shopping',
 			amount: 50.0,
-			datetime: new Date(),
+			date: new Date(),
 			financialAccountId: financialAccount.id,
 			categoryId: category.id,
 			description: 'Grocery Shopping'
@@ -98,7 +98,7 @@ async function main() {
 			data: {
 				name: `Transaction ${i + 1}`,
 				amount: randomAmount,
-				datetime: randomDate,
+				date: randomDate,
 				financialAccountId: randomFinancialAccountId,
 				categoryId: randomCategoryId
 			}
