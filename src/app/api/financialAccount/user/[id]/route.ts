@@ -1,15 +1,13 @@
-import { NextResponse } from 'next/server';
-
 import { getFinancialAccountsByUserId } from '@/server/repositories/financialAccount';
 
 export const GET = async (
-	request: Request,
+	_req: Request,
 	{ params }: { params: { id: string } }
 ) => {
 	if (params.id) {
 		const financialAccounts = await getFinancialAccountsByUserId(params.id);
-		return NextResponse.json(financialAccounts);
+		return new Response(JSON.stringify(financialAccounts), { status: 200 });
 	} else {
-		return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+		return new Response('Missing id', { status: 400 });
 	}
 };

@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server';
-
 import {
 	getTransactionsByFinancialAccountId,
 	updateTransaction
@@ -11,11 +9,10 @@ export const GET = async (
 	{ params }: { params: { id: string } }
 ) => {
 	if (params.id) {
-		return NextResponse.json(
-			await getTransactionsByFinancialAccountId(params.id)
-		);
+		const transactions = await getTransactionsByFinancialAccountId(params.id);
+		return new Response(JSON.stringify(transactions), { status: 200 });
 	} else {
-		return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+		return new Response('Missing id', { status: 400 });
 	}
 };
 
