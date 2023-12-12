@@ -16,7 +16,7 @@ export const CategoryNameField = () => {
 			/>
 			{formState.errors.name?.message && (
 				<p className="text-lust">{formState.errors.name?.message}</p>
-			)}{' '}
+			)}
 		</div>
 	);
 };

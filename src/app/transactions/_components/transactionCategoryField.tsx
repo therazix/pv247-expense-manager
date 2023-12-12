@@ -30,7 +30,7 @@ const TransactionCategoryField = () => {
 				{...register('categoryId')}
 				className="mt-2 w-full rounded-xl border-2 border-majorelle-blue/[0.5] bg-yankees-blue p-3 outline-none"
 			>
-				<option value="">No category</option>{' '}
+				<option value="">No category</option>
 				{categories?.map(category => (
 					<option key={category.id} value={category.id}>
 						{category.name}
