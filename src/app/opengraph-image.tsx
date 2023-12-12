@@ -36,7 +36,7 @@ const Image = async () => {
 						fontSize: 64
 					}}
 				>
-					ESPENSIO
+					EXPENSIO
 				</p>
 				<p
 					style={{
