@@ -1,11 +1,11 @@
-import format from 'date-fns/format';
-
 import { transactionSchema } from '@/validators/transaction';
 import {
 	type TransactionSearchParams,
 	type NewTransaction,
-	type Transaction
+	type Transaction,
+	type UpdateTransaction
 } from '@/types/transaction';
+import { parseDate } from '@/utils';
 
 import { db } from '../db';
 
@@ -14,7 +14,12 @@ export const getTransactionById = async (id: string) => {
 		where: { id },
 		include: { financialAccount: true, category: true }
 	});
-	return transaction ? transactionSchema.parse(transaction) : null;
+	return transaction
+		? transactionSchema.parse({
+				...transaction,
+				dateString: parseDate(transaction.date)
+		  })
+		: null;
 };
 
 export const createTransaction = async (transaction: NewTransaction) => {
@@ -24,7 +29,9 @@ export const createTransaction = async (transaction: NewTransaction) => {
 				name: transaction.name,
 				description: transaction.description,
 				amount: transaction.amount,
-				datetime: transaction.datetime,
+				date: transaction.dateString
+					? new Date(transaction.dateString)
+					: new Date(),
 				financialAccountId: transaction.financialAccountId,
 				categoryId: transaction.categoryId
 			},
@@ -42,7 +49,7 @@ export const createTransaction = async (transaction: NewTransaction) => {
 	return transactionSchema.parse(newTransaction);
 };
 
-export const updateTransaction = async (transaction: Transaction) => {
+export const updateTransaction = async (transaction: UpdateTransaction) => {
 	let updateData = {};
 
 	if (transaction.categoryId) {
@@ -55,7 +62,7 @@ export const updateTransaction = async (transaction: Transaction) => {
 		name: transaction.name,
 		description: transaction.description,
 		amount: transaction.amount,
-		datetime: transaction.datetime
+		date: transaction.dateString ? new Date(transaction.dateString) : new Date()
 	};
 
 	const updatedTransaction = await db.transaction.update({
@@ -147,13 +154,11 @@ export const searchTransactions = async (
 	return transactionSchema.array().parse(
 		transactions.map(transaction => ({
 			...transaction,
-
 			categoryId:
 				transaction.categoryId === null ? undefined : transaction.categoryId, // Why it throws zodError without this?
 			categoryName: transaction.category?.name,
 			financialAccountName: transaction.financialAccount?.name,
-			dateString: transaction.datetime.toLocaleDateString(),
-			dateInputValue: format(transaction.datetime, 'yyyy-MM-dd')
+			dateString: parseDate(transaction.date)
 		}))
 	);
 };

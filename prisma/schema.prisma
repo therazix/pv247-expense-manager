@@ -87,7 +87,7 @@ model Transaction {
   name                String?
   description         String?
   amount              Float             @default(0)
-  datetime            DateTime          @default(now())
+  date                DateTime          @default(now())
   financialAccount    FinancialAccount  @relation(fields: [financialAccountId], references: [id], onDelete: Cascade)
   financialAccountId  String
   category            Category?         @relation(fields: [categoryId], references: [id])

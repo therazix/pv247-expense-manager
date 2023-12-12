@@ -5,7 +5,6 @@ import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import format from 'date-fns/format';
 
 import { type NewTransaction } from '@/types/transaction';
 import Spinner from '@/app/_components/spinner';

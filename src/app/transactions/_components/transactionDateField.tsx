@@ -9,14 +9,14 @@ const TransactionDateField = () => {
 
 	return (
 		<div className="w-full">
-			<label htmlFor="datetime">DateTime</label>
+			<label htmlFor="dateString">Date</label>
 			<input
 				type="date"
-				{...register('datetime')}
+				{...register('dateString')}
 				className="mt-2 w-full rounded-xl border-2 border-majorelle-blue/[0.5] bg-yankees-blue p-3 outline-none"
 			/>
-			{formState.errors.datetime?.message && (
-				<p className="text-lust">{formState.errors.datetime?.message}</p>
+			{formState.errors.dateString?.message && (
+				<p className="text-lust">{formState.errors.dateString?.message}</p>
 			)}
 		</div>
 	);

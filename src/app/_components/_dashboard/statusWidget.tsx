@@ -37,7 +37,7 @@ const StatusWidget = () => {
 	date.setMonth(date.getMonth() - 1);
 
 	const transactionsLastMonth = result.data?.filter(
-		transaction => new Date(transaction.datetime) > date
+		transaction => new Date(transaction.date) > date
 	);
 
 	let totalIncomeLastMonth = 0;
