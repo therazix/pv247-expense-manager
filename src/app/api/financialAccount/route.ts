@@ -18,6 +18,12 @@ export const GET = async () => {
 };
 
 export const POST = async (req: Request) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	const bodyJson = await req.json();
 	try {
 		const account = financialAccountCreateSchema.parse(bodyJson);

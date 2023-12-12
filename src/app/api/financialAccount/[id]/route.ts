@@ -4,11 +4,18 @@ import {
 	updateFinancialAccount
 } from '@/server/repositories/financialAccount';
 import { financialAccountCreateSchema } from '@/validators/financial-account';
+import { getServerAuthSession } from '@/server/auth';
 
 export const GET = async (
 	_req: Request,
 	{ params }: { params: { id: string } }
 ) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	if (params.id) {
 		const financialAccount = await getFinancialAccountById(params.id);
 		return new Response(JSON.stringify(financialAccount), { status: 200 });
@@ -21,6 +28,12 @@ export const PUT = async (
 	req: Request,
 	{ params: { id } }: { params: { id: string } }
 ) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	const bodyJson = await req.json();
 
 	try {
@@ -40,6 +53,12 @@ export const DELETE = async (
 	_req: Request,
 	{ params: { id } }: { params: { id: string } }
 ) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	try {
 		await deleteFinancialAccount(id);
 

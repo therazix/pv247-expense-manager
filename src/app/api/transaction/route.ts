@@ -3,8 +3,15 @@ import {
 	deleteTransactions
 } from '@/server/repositories/transaction';
 import { transactionCreateSchema } from '@/validators/transaction';
+import { getServerAuthSession } from '@/server/auth';
 
 export const POST = async (req: Request) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	const bodyJson = await req.json();
 
 	try {
@@ -23,6 +30,12 @@ export const POST = async (req: Request) => {
 };
 
 export const DELETE = async (req: Request) => {
+	const session = await getServerAuthSession();
+
+	if (!session) {
+		return new Response('Unauthorized access', { status: 401 });
+	}
+
 	const bodyJson = await req.json();
 	try {
 		const transactionIds = [...bodyJson];
