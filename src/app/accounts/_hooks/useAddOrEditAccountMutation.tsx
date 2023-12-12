@@ -1,11 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import type { Session } from 'next-auth';
 import type { RefObject } from 'react';
+import { toast } from 'react-toastify';
 
 import type {
 	FinancialAccount,
 	NewFinancialAccount
 } from '@/types/financial-account';
+import { formatErrResponse } from '@/utils';
 
 const useAddOrEditAccountMutation = (
 	selectedAccount: FinancialAccount | null,
@@ -17,28 +19,35 @@ const useAddOrEditAccountMutation = (
 		mutationFn: async (account: NewFinancialAccount) => {
 			if (selectedAccount) {
 				if (session?.user.id === selectedAccount.userId) {
-					return await fetch(`/api/financialAccount/${selectedAccount.id}`, {
-						method: 'PUT',
-						body: JSON.stringify(account)
-					});
+					const response = await fetch(
+						`/api/financialAccount/${selectedAccount.id}`,
+						{
+							method: 'PUT',
+							body: JSON.stringify(account)
+						}
+					);
+					if (!response.ok) {
+						throw new Error(await formatErrResponse(response));
+					}
+					return response;
 				}
-				// TODO: add error handling later
-				console.log('ERROR');
-				return new Response('Unauthorized', { status: 401 });
-				// TODO: add error handling later
+				throw new Error('Unauthorized');
 			}
 
-			return await fetch(`/api/financialAccount`, {
+			const response = await fetch(`/api/financialAccount`, {
 				method: 'POST',
 				body: JSON.stringify(account)
 			});
+			if (!response.ok) {
+				throw new Error(await formatErrResponse(response));
+			}
 		},
 		onSuccess: () => {
 			clearDialog();
 		},
-		onError: () => {
-			// TODO: add error handling later
-			console.log('ERROR');
+		onError: error => {
+			console.error(error);
+			toast.error(error.message);
 		},
 		onSettled: () => {
 			if (dialogRef.current !== null) {

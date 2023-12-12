@@ -43,7 +43,7 @@ export const PUT = async (
 
 		return new Response(JSON.stringify(result), { status: 201 });
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 
 		return new Response('Account could not be updated', { status: 500 });
 	}
@@ -64,7 +64,7 @@ export const DELETE = async (
 
 		return new Response(null, { status: 204 });
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 
 		return new Response('Account could not be deleted', { status: 500 });
 	}

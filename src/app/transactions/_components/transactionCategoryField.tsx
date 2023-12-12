@@ -15,13 +15,11 @@ const TransactionCategoryField = () => {
 			queryFn: async () => {
 				const response = await fetch('/api/category').then(res => res.json());
 
-				// TODO: error handling
-				const categories = categorySchema.array().parse(response);
-				return categories;
+				return categorySchema.array().parse(response);
 			}
 		});
 
-	const { data: categories } = useCategories();
+	const { data: categories, error } = useCategories();
 
 	return (
 		<div className="w-full">
@@ -40,6 +38,7 @@ const TransactionCategoryField = () => {
 			{formState.errors.categoryId?.message && (
 				<p className="text-lust">{formState.errors.categoryId?.message}</p>
 			)}
+			{error && <p className="text-lust">{error.message}</p>}
 		</div>
 	);
 };

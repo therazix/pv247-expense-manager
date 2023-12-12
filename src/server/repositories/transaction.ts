@@ -65,7 +65,7 @@ export const updateTransaction = async (transaction: UpdateTransaction) => {
 
 	const amountDiff = transaction.amount - oldTransaction.amount;
 
-	const updatedTransaction = await db.$transaction([
+	const [updatedTransaction, _] = await db.$transaction([
 		db.transaction.update({
 			where: { id: transaction.id },
 			data: {
@@ -96,7 +96,11 @@ export const updateTransaction = async (transaction: UpdateTransaction) => {
 			}
 		})
 	]);
-	return transactionSchema.parse(updatedTransaction);
+	return transactionSchema.parse({
+		...updatedTransaction,
+		dateString: parseDate(updatedTransaction.date),
+		categoryId: updatedTransaction.categoryId ?? undefined
+	});
 };
 
 const deleteTransaction = async (transaction: Transaction) => {

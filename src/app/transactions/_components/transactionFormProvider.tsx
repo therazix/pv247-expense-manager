@@ -84,7 +84,6 @@ const TransactionFormProvider = ({
 	]);
 
 	useEffect(() => {
-		// TODO: date is not selected when editing transaction
 		if (selectedTransaction) {
 			formMethods.reset(transactionCreateSchema.parse(selectedTransaction));
 		} else {

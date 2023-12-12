@@ -5,12 +5,13 @@ import { useContext, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 import ContentBox from '@/app/_components/contentBox';
 import FaIcon from '@/app/_components/faIcon';
 import { type Category } from '@/types/category';
 import { useLastUpdateContext } from '@/store/lastUpdate';
-import { createTimestamp } from '@/utils';
+import { createTimestamp, formatErrResponse } from '@/utils';
 
 import {
 	DialogRefContext,
@@ -44,19 +45,20 @@ const CategoryBox = ({ category }: CategoryBoxProps) => {
 	const deleteCategoryMutation = useMutation({
 		mutationFn: async (category: Category) => {
 			if (session?.user.id === category.userId) {
-				return await fetch(`/api/category/${category.id}`, {
+				const response = await fetch(`/api/category/${category.id}`, {
 					method: 'DELETE'
 				});
+				if (!response.ok) {
+					throw new Error(await formatErrResponse(response));
+				}
+				return response;
 			}
 
-			// TODO: add error handling later
-			console.log('ERROR');
-			return new Response('Unauthorized', { status: 401 });
-			// TODO: add error handling later
+			throw new Error('Unauthorized');
 		},
-		onError: () => {
-			// TODO: add error handling later
-			console.log('ERROR');
+		onError: error => {
+			console.error(error);
+			toast.error(error.message);
 		}
 	});
 
