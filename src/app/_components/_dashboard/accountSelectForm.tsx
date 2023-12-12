@@ -22,7 +22,7 @@ const useGetAccounts = () =>
 		}
 	});
 
-const AccountSelectorForm = ({ id }: { id: string }) => {
+const AccountSelectorForm = () => {
 	const { register } = useForm<AccountInput>();
 	const [_financialAccount, setFinancialAccount] = useFinancialAccountSelect();
 

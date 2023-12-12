@@ -20,7 +20,10 @@ const TransactionListPage = async ({
 		redirect('/sign-in?callbackUrl=/transactions');
 	}
 
-	const transactions = await searchTransactions(searchParams);
+	const transactions = await searchTransactions({
+		...searchParams,
+		userId: session.user.id
+	});
 
 	if (transactions.length === 0) {
 		return (

@@ -23,18 +23,25 @@ export const getTransactionById = async (id: string) => {
 };
 
 export const createTransaction = async (transaction: NewTransaction) => {
+	let data = {
+		name: transaction.name,
+		description: transaction.description,
+		amount: transaction.amount,
+		date: transaction.dateString
+			? new Date(transaction.dateString)
+			: new Date(),
+		financialAccountId: transaction.financialAccountId,
+		categoryId: transaction.categoryId
+	};
+	if (transaction.categoryId) {
+		data = {
+			...data,
+			categoryId: transaction.categoryId
+		};
+	}
 	const [newTransaction, _financialAcc] = await db.$transaction([
 		db.transaction.create({
-			data: {
-				name: transaction.name,
-				description: transaction.description,
-				amount: transaction.amount,
-				date: transaction.dateString
-					? new Date(transaction.dateString)
-					: new Date(),
-				financialAccountId: transaction.financialAccountId,
-				categoryId: transaction.categoryId
-			},
+			data,
 			include: { category: true }
 		}),
 		db.financialAccount.update({
@@ -50,24 +57,26 @@ export const createTransaction = async (transaction: NewTransaction) => {
 };
 
 export const updateTransaction = async (transaction: UpdateTransaction) => {
-	let updateData = {};
-
-	if (transaction.categoryId) {
-		updateData = {
-			categoryId: transaction.categoryId
-		};
-	}
-	updateData = {
-		...updateData,
-		name: transaction.name,
-		description: transaction.description,
-		amount: transaction.amount,
-		date: transaction.dateString ? new Date(transaction.dateString) : new Date()
-	};
-
 	const updatedTransaction = await db.transaction.update({
 		where: { id: transaction.id },
-		data: updateData
+		data: {
+			name: transaction.name ?? null,
+			description: transaction.description ?? null,
+			amount: transaction.amount,
+			date: transaction.dateString
+				? new Date(transaction.dateString)
+				: new Date(),
+			financialAccount: {
+				connect: { id: transaction.financialAccountId }
+			},
+			category: transaction.categoryId
+				? {
+						connect: { id: transaction.categoryId }
+				  }
+				: {
+						disconnect: true
+				  }
+		}
 	});
 	return transactionSchema.parse(updatedTransaction);
 };
@@ -108,7 +117,7 @@ export const deleteTransactions = async (ids: string[]) => {
 		deletedTransactions.push(deletedTransaction as Transaction);
 	}
 
-	return transactionSchema.parse(deletedTransactions);
+	return transactionSchema.array().parse(deletedTransactions);
 };
 
 export const getTransactionsByFinancialAccountId = async (
@@ -124,26 +133,11 @@ export const getTransactionsByFinancialAccountId = async (
 export const searchTransactions = async (
 	transactionSearchParams: TransactionSearchParams
 ) => {
-	let whereFilter = {};
-
-	if (transactionSearchParams.categoryId) {
-		whereFilter = {
-			...whereFilter,
-			categoryId: { equals: transactionSearchParams.categoryId }
-		};
-	}
-
-	if (transactionSearchParams.financialAccountId) {
-		whereFilter = {
-			...whereFilter,
-			financialAccountId: { equals: transactionSearchParams.financialAccountId }
-		};
-	}
-
 	const transactions = await db.transaction.findMany({
 		where: {
 			financialAccount: { userId: { equals: transactionSearchParams.userId } },
-			...whereFilter
+			categoryId: transactionSearchParams.categoryId,
+			financialAccountId: transactionSearchParams.financialAccountId
 		},
 		include: {
 			category: { select: { name: true } },
