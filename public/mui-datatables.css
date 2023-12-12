@@ -2,6 +2,24 @@
     background-color: #1D1D41 !important;
 }
 
-.MuiPaper-root * {
-    color: white;
+div[class$="MUIDataTableFilter-root"] * {
+    color: #1D1D41 !important;
+}
+
+.MuiPaper-root > .MuiIconButton-root {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.MuiPaper-root > .MuiIconButton-root:hover {
+    background-color: #141332;
+    box-shadow: 0px 0px 2px 0px #141332;
+}
+
+.MuiPaper-root *, .MuiTypography-root  {
+    color: white !important;
+}
+
+.MuiButtonBase-root {
+    font-weight: 600;
 }
