@@ -40,7 +40,7 @@ const CategoryListPage = async () => {
 					</div>
 				))}
 				<CategoryForm />
-			</div>{' '}
+			</div>
 		</div>
 	);
 };
