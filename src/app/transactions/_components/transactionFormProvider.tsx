@@ -116,7 +116,7 @@ const TransactionFormProvider = ({
 		return <Spinner />;
 	}
 	if (!session) {
-		redirect('/sign-in');
+		redirect('/sign-in?callbackUrl=/transactions');
 	}
 
 	const onSubmit = (transaction: NewTransaction) => {
