@@ -7,3 +7,6 @@ export const getAppUrl = () =>
 	process.env.DEPLOY_URL?.replace(/\/+$/, '') ?? 'http://localhost:3000';
 
 export const parseDate = (date: Date) => format(date, 'yyyy-MM-dd');
+
+export const formatErrResponse = async (response: Response) =>
+	`Error ${response.status}: ${await response.text()}`;

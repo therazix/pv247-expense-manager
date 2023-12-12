@@ -40,13 +40,11 @@ export const DELETE = async (req: Request) => {
 	try {
 		const transactionIds = [...bodyJson];
 
-		console.log('DELETE API');
-		console.log(transactionIds);
 		await deleteTransactions(transactionIds);
 
 		return new Response(null, { status: 204 });
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 
 		return new Response('Transaction could not be deleted', { status: 500 });
 	}

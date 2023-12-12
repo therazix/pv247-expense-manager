@@ -1,7 +1,10 @@
+import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
 
-import './globals.css';
 import { getAppUrl } from '@/utils';
 
 import { Providers } from './providers';
@@ -25,7 +28,18 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
 		>
 			<Providers>
 				<Menu />
-				<main className="h-screen grow">{children}</main>
+				<main className="h-screen grow">
+					{children}
+					<ToastContainer
+						position="top-center"
+						autoClose={5000}
+						hideProgressBar={false}
+						newestOnTop={false}
+						closeOnClick
+						rtl={false}
+						theme="dark"
+					/>
+				</main>
 			</Providers>
 		</body>
 	</html>

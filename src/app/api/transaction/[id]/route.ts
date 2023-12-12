@@ -43,8 +43,10 @@ export const PUT = async (
 
 		return new Response(JSON.stringify(updatedTransaction), { status: 201 });
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 
-		return new Response('Transaction could not be updated', { status: 500 });
+		return new Response(`Transaction could not be updated: ${error}`, {
+			status: 500
+		});
 	}
 };

@@ -9,6 +9,8 @@ import {
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ContentBox from '@/app/_components/contentBox';
 import { type FinancialAccount } from '@/types/financial-account';

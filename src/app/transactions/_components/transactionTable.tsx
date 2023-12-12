@@ -54,15 +54,13 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 					`/api/financialAccount/${financialAccountId}`
 				).then(res => res.json());
 
-				//TODO: error handling
-				const financialAccount = financialAccountSchema.parse(response);
-				return financialAccount;
-			}
+				return financialAccountSchema.parse(response);
+			},
+			enabled: financialAccountId !== null
 		});
 
-	const financialAccount = useFinancialAccountQuery(
-		financialAccountId as string
-	);
+	const { data: financialAccountData, error: financialAccountError } =
+		useFinancialAccountQuery(financialAccountId as string);
 
 	const useCategoryQuery = (categoryId: string) =>
 		useQuery({
@@ -72,13 +70,14 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 					res.json()
 				);
 
-				//TODO: error handling
-				const category = categorySchema.parse(response);
-				return category;
-			}
+				return categorySchema.parse(response);
+			},
+			enabled: categoryId !== null
 		});
 
-	const category = useCategoryQuery(categoryId as string);
+	const { data: categoryData, error: categoryError } = useCategoryQuery(
+		categoryId as string
+	);
 
 	const data = [...transactions];
 
@@ -181,20 +180,26 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 
 	const title =
 		categoryId && financialAccountId
-			? `Category: ${category.data?.name}, Account: ${financialAccount.data?.name}`
+			? `Category: ${categoryData?.name}, Account: ${financialAccountData?.name}`
 			: categoryId
-			? `Category: ${category.data?.name}`
+			? `Category: ${categoryData?.name}`
 			: financialAccountId
-			? `Account: ${financialAccount.data?.name}`
+			? `Account: ${financialAccountData?.name}`
 			: 'All transactions';
 
 	return (
-		<MUIDataTable
-			title={title}
-			data={data}
-			options={options}
-			columns={columns}
-		/>
+		<>
+			{financialAccountError && (
+				<p className="text-lust">{financialAccountError?.message}</p>
+			)}
+			{categoryError && <p className="text-lust">{categoryError?.message}</p>}
+			<MUIDataTable
+				title={title}
+				data={data}
+				options={options}
+				columns={columns}
+			/>
+		</>
 	);
 };
 

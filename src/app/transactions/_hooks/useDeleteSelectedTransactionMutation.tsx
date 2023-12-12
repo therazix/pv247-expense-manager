@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useSearchParams } from 'next/navigation';
+import { toast } from 'react-toastify';
 
-import { createTimestamp } from '@/utils';
+import { createTimestamp, formatErrResponse } from '@/utils';
 
 const useDeleteSelectedTransactionMutation = (
 	router: AppRouterInstance,
@@ -12,10 +13,14 @@ const useDeleteSelectedTransactionMutation = (
 
 	return useMutation({
 		mutationFn: async (selectedIds: string[]) => {
-			await fetch(`/api/transaction`, {
+			const response = await fetch(`/api/transaction`, {
 				method: 'DELETE',
 				body: JSON.stringify(selectedIds)
 			});
+			if (!response.ok) {
+				throw new Error(await formatErrResponse(response));
+			}
+			return response;
 		},
 		onSuccess: () => {
 			const lastUpdate = createTimestamp();
@@ -34,9 +39,9 @@ const useDeleteSelectedTransactionMutation = (
 
 			router.push(href);
 		},
-		onError: () => {
-			// TODO: add error handling
-			console.log('ERROR');
+		onError: error => {
+			console.error(error);
+			toast.error(error.message);
 		}
 	});
 };

@@ -17,16 +17,11 @@ const TransactionAccountField = () => {
 					res.json()
 				);
 
-				//TODO: error handling
-				const financialAccounts = financialAccountSchema
-					.array()
-					.parse(response);
-
-				return financialAccounts;
+				return financialAccountSchema.array().parse(response);
 			}
 		});
 
-	const { data: financialAccounts } = useFinancialAccounts();
+	const { data: financialAccounts, error } = useFinancialAccounts();
 
 	return (
 		<div className="w-full">
@@ -47,6 +42,7 @@ const TransactionAccountField = () => {
 					{formState.errors.financialAccountId?.message}
 				</p>
 			)}
+			{error && <p className="text-lust">{error.message}</p>}
 		</div>
 	);
 };
