@@ -23,25 +23,18 @@ export const getTransactionById = async (id: string) => {
 };
 
 export const createTransaction = async (transaction: NewTransaction) => {
-	let data = {
-		name: transaction.name,
-		description: transaction.description,
-		amount: transaction.amount,
-		date: transaction.dateString
-			? new Date(transaction.dateString)
-			: new Date(),
-		financialAccountId: transaction.financialAccountId,
-		categoryId: transaction.categoryId
-	};
-	if (transaction.categoryId) {
-		data = {
-			...data,
-			categoryId: transaction.categoryId
-		};
-	}
 	const [newTransaction, _financialAcc] = await db.$transaction([
 		db.transaction.create({
-			data,
+			data: {
+				name: transaction.name,
+				description: transaction.description,
+				amount: transaction.amount,
+				date: transaction.dateString
+					? new Date(transaction.dateString)
+					: new Date(),
+				financialAccountId: transaction.financialAccountId,
+				categoryId: transaction.categoryId ?? undefined
+			},
 			include: { category: true }
 		}),
 		db.financialAccount.update({
@@ -53,7 +46,11 @@ export const createTransaction = async (transaction: NewTransaction) => {
 			}
 		})
 	]);
-	return transactionSchema.parse(newTransaction);
+	return transactionSchema.parse({
+		...newTransaction,
+		dateString: parseDate(newTransaction.date),
+		categoryId: newTransaction.categoryId ?? undefined
+	});
 };
 
 export const updateTransaction = async (transaction: UpdateTransaction) => {
