@@ -56,10 +56,20 @@ const StatusWidget = () => {
 	totalExpenses = Math.round(totalExpenses * 100) / 100;
 	totalIncome = Math.round(totalIncome * 100) / 100;
 
-	const incomePercentChange =
-		Math.round((totalIncome / 100) * totalIncomeLastMonth) / 100;
-	const expensesPercentChange =
-		Math.round((totalExpenses / 100) * totalExpensesLastMonth) / 100;
+	let incomePercentChange = Math.round(
+		(totalIncomeLastMonth / totalIncome) * 100
+	);
+	let expensesPercentChange = Math.round(
+		(totalExpensesLastMonth / totalExpenses) * 100
+	);
+
+	if (
+		totalIncome === totalIncomeLastMonth &&
+		totalExpenses === totalExpensesLastMonth
+	) {
+		incomePercentChange = 0;
+		expensesPercentChange = 0;
+	}
 
 	return (
 		<div className="mb-3 ml-6 mr-5 mt-3 flex flex-row flex-wrap items-stretch justify-start gap-0 md:mb-0 md:ml-5 md:mt-0 md:flex-nowrap md:gap-5">
