@@ -131,7 +131,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
 			}
 		},
 		{
-			name: '',
+			name: 'Actions',
 			options: {
 				filter: false,
 				sort: false,
