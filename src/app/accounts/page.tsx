@@ -41,7 +41,7 @@ const AccountListPage = async () => {
 			</h1>
 			<div className="flex flex-wrap">
 				{userAccounts.map(account => (
-					<div key={account.id} className="w-full md:w-1/2 xl:w-1/3">
+					<div key={account.id} className="w-full xl:w-1/2">
 						<AccountBox account={account} />
 					</div>
 				))}
