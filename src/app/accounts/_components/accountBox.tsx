@@ -65,16 +65,21 @@ const AccountBox = ({ account }: AccountBoxProps) => {
 		<ContentBox>
 			<div className="flex items-center justify-between">
 				<div className="flex items-center">
-					<div className="mr-6 flex h-10 w-10 self-center rounded bg-majorelle-blue p-3">
+					<div className="mr-3 flex h-10 w-10 self-center rounded bg-majorelle-blue p-3 sm:mr-6">
 						<FaLandmark />
 					</div>
 					<div>
-						<p className={`text-${balanceColor} mr-6 text-base font-semibold`}>
+						<p
+							className={`text-${balanceColor} mr-3 text-sm font-semibold sm:mr-6 sm:text-base`}
+						>
 							{account.currency} {formatBalance(account.balance)}
 						</p>
 					</div>
 					<div>
-						<p className="text-base text-cool-grey">{account.name}</p>
+						<p className="text-sm text-white sm:text-base">{account.name}</p>
+					</div>
+					<div className="ml-5 hidden sm:block">
+						<p className="text-base text-cool-grey">{account.description}</p>
 					</div>
 				</div>
 				<div className="flex flex-row gap-3">
