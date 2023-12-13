@@ -80,7 +80,7 @@ const CategoryBox = ({ category }: CategoryBoxProps) => {
 						<FaIcon icon={category.icon} />
 					</div>
 					<div>
-						<p className="text-base text-cool-grey">{category.name}</p>
+						<p className="text-base text-white">{category.name}</p>
 					</div>
 				</div>
 				<div className="flex flex-row gap-3">
